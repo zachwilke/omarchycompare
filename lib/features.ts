@@ -32,3 +32,36 @@ export const MAC_COLUMN = "macOS Tahoe 26";
 export const MAC_COLUMN_NOTE = "public 26.6.2";
 export const WINDOWS_COLUMN = "Windows 11 25H2";
 export const OMARCHY_COLUMN = "Omarchy 4.0.1";
+
+export const features: Feature[] = [
+  {
+    id: "quickshell",
+    name: "One shell process",
+    tease: "Bar, launcher, menus, lock, notifications — one Quickshell. Not seven Linux daemons.",
+    category: "Future desktop",
+    omarchy:
+      "Quattro rewrote the desktop in Quickshell. The bar, launcher, menus, notifications, on-screen displays, control panels, lock screen, and polkit agent live in a single long-running process with a plugin architecture. Waybar, Walker, Mako, SwayOSD, hyprlock, hypridle, swaybg, and polkit-gnome are gone. One themed, IPC-scriptable shell. Event-driven, so an idle desktop stops burning CPU. The bar’s widgets are real surfaces — workspaces, media, tray, battery, mic, updates, DND — and Super + Ctrl + 1–9 opens the right-side panels by position.",
+    macReach: "WindowServer + Control Center",
+    windowsReach: "explorer.exe + Shell Experience",
+    columns: {
+      omarchy: {
+        verdict: "better",
+        label: "omarchy-shell",
+        note: "One process. Plugins instead of a daemon pile.",
+      },
+      macos: {
+        verdict: "different",
+        label: "Integrated shell",
+        note: "Apple’s desktop is one product — not one replaceable process.",
+      },
+      windows: {
+        verdict: "different",
+        label: "Explorer shell",
+        note: "Taskbar, Start, and toasts are separate moving parts.",
+      },
+    },
+    source: "Omarchy 4.0.0 release notes (The Quattro Release) — The Shell",
+    macOrder: 1,
+    windowsOrder: 1,
+  },
+];
