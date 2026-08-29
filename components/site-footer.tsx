@@ -26,7 +26,9 @@ export function SiteFooter() {
         </a>
       </p>
       <p className="omarchy-footer__disclaimer">
-        Not owned or managed by Omarchy or the Omacom Foundation. Just a loving user.
+        Not owned or managed by Omarchy or the Omacom Foundation.
+        <br />
+        Just a loving user.
       </p>
     </footer>
   );

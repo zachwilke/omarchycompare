@@ -2,10 +2,8 @@ import { VERSION_BADGE } from "@/lib/features";
 
 export function Hero() {
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
-      <p className="text-center text-[color:rgb(var(--rgb-terminal-white)/0.7)]">
-        {VERSION_BADGE}
-      </p>
+    <div className="omarchy-hero">
+      <p className="omarchy-version">{VERSION_BADGE}</p>
       <p className="omarchy-lede">
         Omarchy is the desktop for people who actually run a machine: keyboard
         first, windows that tile, one shell instead of a pile of daemons. This
