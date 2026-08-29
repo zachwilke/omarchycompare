@@ -95,30 +95,31 @@ export function Compare() {
           </label>
         </div>
 
-        <p className="compare-count" aria-live="polite">
-          {query.trim()
-            ? `${visible.length} ${visible.length === 1 ? "row" : "rows"} match “${query.trim()}”`
-            : `${visible.length} sourced rows · tap a row for one line`}
-        </p>
-
-        <p className="compare-legend">
-          <span className="inline-flex items-center gap-1.5">
-            <Check className="size-3.5 stroke-[2.4] text-terminal-cyan" aria-hidden />
-            Better
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Check className="size-3.5 stroke-[2.4] text-terminal-white/80" aria-hidden />
-            Has it
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="text-terminal-white/75">≠</span>
-            Different
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Minus className="size-3.5 text-terminal-white/70" aria-hidden />
-            No
-          </span>
-        </p>
+        <div className="compare-meta">
+          <p className="compare-legend">
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="size-3.5 stroke-[2.4] text-terminal-cyan" aria-hidden />
+              Better
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="size-3.5 stroke-[2.4] text-terminal-white/80" aria-hidden />
+              Has it
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="text-terminal-white/75">≠</span>
+              Different
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Minus className="size-3.5 text-terminal-white/70" aria-hidden />
+              No
+            </span>
+          </p>
+          <p className="compare-count" aria-live="polite">
+            {query.trim()
+              ? `${visible.length} match “${query.trim()}”`
+              : `${visible.length}`}
+          </p>
+        </div>
 
         {groups.length === 0 ? (
           <p className="mt-8 text-center text-terminal-white/80">
@@ -161,7 +162,7 @@ export function Compare() {
                   <tr>
                     <th
                       scope="col"
-                      className="compare-sticky-corner bg-storm px-3 py-2 text-left font-normal uppercase text-terminal-white"
+                      className="compare-sticky-corner bg-night px-3 py-2 text-left font-normal uppercase text-terminal-white"
                     >
                       Feature
                     </th>
@@ -169,7 +170,7 @@ export function Compare() {
                       <th
                         key={column.id}
                         scope="col"
-                        className="compare-sticky-head bg-storm px-2 py-2 text-center font-normal uppercase text-terminal-white/85"
+                        className="compare-sticky-head bg-night px-2 py-2 text-center font-normal uppercase text-terminal-white/85"
                       >
                         {column.label}
                       </th>
@@ -182,7 +183,7 @@ export function Compare() {
                       <th
                         scope="colgroup"
                         colSpan={4}
-                        className="compare-sticky-col compare-group-head bg-storm px-3 text-left font-normal uppercase text-terminal-cyan"
+                        className="compare-sticky-col compare-group-head bg-night px-3 text-left font-normal uppercase text-terminal-cyan"
                       >
                         {group.category}
                       </th>
@@ -272,7 +273,7 @@ function FeatureRow({
       onKeyDown={onKeyDown}
       className={cn(
         "cursor-pointer border-t outline-none",
-        open ? "bg-night" : "hover:bg-night/50",
+        open ? "bg-night" : "hover:bg-storm/40",
       )}
       style={{ borderColor: "var(--border-color)" }}
     >
@@ -280,7 +281,7 @@ function FeatureRow({
         scope="row"
         className={cn(
           "compare-sticky-col compare-row-name px-3 text-left font-normal",
-          open ? "bg-night" : "bg-storm",
+          "bg-night",
         )}
       >
         <span className="block text-terminal-white">{feature.name}</span>

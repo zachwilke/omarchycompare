@@ -2,7 +2,6 @@ import {
   OMACOM_ANNOUNCE_URL,
   OMACOM_URL,
   OMARCHY_URL,
-  VERSION_BADGE,
 } from "@/lib/features";
 
 export function SiteFooter() {
@@ -12,15 +11,15 @@ export function SiteFooter() {
         <a href={OMARCHY_URL} target="_blank" rel="noreferrer" className="omarchy-link">
           omarchy.org
         </a>
-        <span className="omarchy-footer__dot">·</span>
-        {VERSION_BADGE}
-      </p>
-      <p>
-        Stewarded by the{" "}
+        <span className="omarchy-meta-dot" aria-hidden>
+          ·
+        </span>
         <a href={OMACOM_ANNOUNCE_URL} target="_blank" rel="noreferrer" className="omarchy-link">
-          Omacom Foundation
+          Omacom
         </a>
-        <span className="omarchy-footer__dot">·</span>
+        <span className="omarchy-meta-dot" aria-hidden>
+          ·
+        </span>
         <a href={OMACOM_URL} target="_blank" rel="noreferrer" className="omarchy-link">
           omacom.io
         </a>
