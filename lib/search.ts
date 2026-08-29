@@ -103,14 +103,20 @@ export const FEATURE_ALIASES: Record<string, string[]> = {
     "layout",
     "opencode",
   ],
-  "install-ai": [
+  "local-models": [
     "agent",
     "ollama",
     "lm studio",
-    "chatgpt",
-    "grok",
+    "local",
     "local llm",
     "local models",
+  ],
+  "grok-chatgpt": [
+    "agent",
+    "chatgpt",
+    "grok",
+    "grok bot",
+    "xai",
   ],
   "omarchy-agent-cli": [
     "agent",
