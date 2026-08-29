@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource/jetbrains-mono/300.css";
+@import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/700.css";
 
 @custom-variant dark (&:is(.dark *));
@@ -162,32 +163,35 @@ body {
   overflow-x: hidden;
 }
 
-/* Modest pixel wordmark — not the full omarchy.org ASCII masthead. */
+/* Official Omarchy ASCII wordmark — Manual-scale, not the homepage masthead. */
 .omarchy-pre {
   display: grid;
   margin-top: var(--space-x-large);
-  padding-inline: var(--space-large);
+  padding-inline: var(--space-medium);
 }
 
 .omarchy-pre a {
   color: var(--color-green);
-  font-weight: 300;
+  font-weight: 400;
   justify-self: center;
   text-decoration: none;
+  width: 100%;
 }
 
 .omarchy-pre pre {
   color: var(--color-green);
   font-family: var(--font-family);
-  font-size: clamp(0.85rem, 2.4vw, 1.45rem);
-  font-weight: 700;
+  font-size: clamp(0.34rem, 1.1vw, 0.62rem);
+  font-weight: 400;
   justify-self: center;
-  letter-spacing: 0.08em;
-  line-height: 1.05;
-  margin: 0;
+  letter-spacing: -0.0425em;
+  line-height: 1.09375;
+  margin: 0 auto;
+  overflow-x: hidden;
   text-align: center;
   transition: color var(--transition);
   white-space: pre;
+  width: 100%;
 }
 
 @media (hover: hover) {
@@ -357,27 +361,35 @@ body {
   text-decoration: none;
 }
 
-.omarchy-footer__icon svg {
-  color: var(--color-terminal-cyan);
+.omarchy-footer__icon img {
   display: inline-block;
-  height: 1.2em;
-  max-height: 100%;
-  overflow: visible;
+  height: 1.15em;
   pointer-events: none;
-  vertical-align: -0.2125em;
-  width: auto;
+  vertical-align: -0.2em;
+  width: 1.15em;
 }
 
-.omarchy-footer__icon strong {
+.omarchy-footer__icon strong,
+.omarchy-footer strong {
   color: var(--color-terminal-cyan);
   display: inline-block;
   font-weight: 700;
-  margin-left: 0.35em;
+}
+
+.omarchy-footer__icon strong {
+  margin-left: 0.4em;
+}
+
+.omarchy-footer__disclaimer {
+  color: rgb(var(--rgb-terminal-white) / 0.5);
+  font-weight: 300;
+  max-width: 46ch;
+  justify-self: center;
 }
 
 @media (hover: hover) {
-  .omarchy-footer__icon svg,
-  .omarchy-footer__icon strong {
+  .omarchy-footer__icon strong,
+  .omarchy-footer a strong {
     transition: color var(--transition);
   }
 
@@ -386,10 +398,10 @@ body {
     color: inherit;
   }
 
-  .omarchy-footer__icon:hover svg,
-  .omarchy-footer__icon:focus svg,
   .omarchy-footer__icon:hover strong,
-  .omarchy-footer__icon:focus strong {
+  .omarchy-footer__icon:focus strong,
+  .omarchy-footer a:hover strong,
+  .omarchy-footer a:focus strong {
     color: var(--color-white);
   }
 }
