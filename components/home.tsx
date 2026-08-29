@@ -1,18 +1,9 @@
-"use client";
-
-import { useState } from "react";
 import { Compare } from "@/components/compare";
-import { CtaBand } from "@/components/cta-band";
-import { Gaps } from "@/components/gaps";
 import { Hero } from "@/components/hero";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { features } from "@/lib/features";
-import type { ComingFrom } from "@/lib/types";
 
 export function Home() {
-  const [comingFrom, setComingFrom] = useState<ComingFrom>("either");
-
   return (
     <div id="top" className="flex min-h-full flex-col">
       <a
@@ -21,16 +12,10 @@ export function Home() {
       >
         Skip to compare
       </a>
-      <SiteHeader comingFrom={comingFrom} onComingFrom={setComingFrom} />
+      <SiteHeader />
       <main>
-        <Hero comingFrom={comingFrom} onComingFrom={setComingFrom} />
-        <Compare
-          comingFrom={comingFrom}
-          onComingFrom={setComingFrom}
-          features={features}
-        />
-        <Gaps />
-        <CtaBand />
+        <Hero />
+        <Compare />
       </main>
       <SiteFooter />
     </div>

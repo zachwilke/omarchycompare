@@ -77,7 +77,7 @@
   --chart-3: #9a9184;
   --chart-4: #c48a58;
   --chart-5: #f3ead8;
-  --radius: 0.75rem;
+  --radius: 0.625rem;
   --sidebar: #141210;
   --sidebar-foreground: #f3ead8;
   --sidebar-primary: #e8b86d;
@@ -94,91 +94,40 @@
   }
 
   html {
-    @apply font-sans scroll-smooth overflow-x-clip;
+    @apply scroll-smooth font-sans;
   }
 
   body {
-    @apply bg-background text-foreground overflow-x-clip pb-[env(safe-area-inset-bottom)];
-    background-image:
-      radial-gradient(ellipse at 20% 0%, rgba(232, 184, 109, 0.08), transparent 42%),
-      radial-gradient(ellipse at 90% 10%, rgba(126, 168, 160, 0.05), transparent 36%),
-      linear-gradient(#0c0b0a, #0c0b0a);
-  }
-
-  body::before {
-    content: "";
-    pointer-events: none;
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    @apply bg-background text-foreground pb-[env(safe-area-inset-bottom)];
   }
 }
 
-@keyframes tile-breathe {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.985);
-  }
+.compare-sticky-head {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 20;
 }
 
-@keyframes palette-caret {
-  0%,
-  40% {
-    width: 0;
-  }
-  55%,
-  100% {
-    width: 3.2ch;
-  }
+.compare-sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  min-width: 11.5rem;
+  box-shadow: 8px 0 12px -12px rgb(0 0 0 / 70%);
 }
 
-@keyframes carousel-pan {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.compare-sticky-corner {
+  position: sticky;
+  top: 3.5rem;
+  left: 0;
+  z-index: 30;
+  min-width: 11.5rem;
+  box-shadow: 8px 0 12px -12px rgb(0 0 0 / 70%);
 }
 
-.tile-a,
-.tile-b,
-.tile-c {
-  animation: tile-breathe 7s ease-in-out infinite;
-}
-
-.tile-b {
-  animation-delay: 0.8s;
-}
-
-.tile-c {
-  animation-delay: 1.6s;
-}
-
-.palette-type {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 3.2ch;
-  animation: palette-caret 4.8s steps(5) infinite;
-}
-
-.carousel-track {
-  width: max-content;
-  animation: carousel-pan 22s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tile-a,
-  .tile-b,
-  .tile-c,
-  .palette-type,
-  .carousel-track {
-    animation: none;
+@media (min-width: 768px) {
+  .compare-sticky-col,
+  .compare-sticky-corner {
+    min-width: 16rem;
   }
 }

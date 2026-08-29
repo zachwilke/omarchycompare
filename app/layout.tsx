@@ -21,7 +21,7 @@ const instrument = Instrument_Serif({
 export const metadata: Metadata = {
   title: "Omarchy 4.0.1 vs macOS Tahoe 26 vs Windows 11 25H2",
   description:
-    "Interactive compare of Omarchy 4.0.1 (Quattro) with macOS Tahoe 26 and Windows 11 25H2. Tiling, one menu, one update, twenty-two themes — sourced from the official release and omarchy.org.",
+    "Sourced comparison sheet: Omarchy 4.0.1 (Quattro) vs macOS Tahoe 26 vs Windows 11 25H2. Checks, not essays.",
   icons: { icon: "/favicon.svg" },
 };
 

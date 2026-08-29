@@ -1,8 +1,8 @@
 # Omarchy 4.0.1 vs macOS Tahoe 26 vs Windows 11 25H2
 
-A conversion-minded compare site for people leaving macOS Tahoe 26 (public 26.6.2) or Windows 11 25H2 for [Omarchy](https://omarchy.org) **4.0.1 · Quattro**.
+A sourced comparison sheet: [Omarchy](https://omarchy.org) **4.0.1 · Quattro** against macOS Tahoe 26 (public 26.6.2) and Windows 11 25H2.
 
-Click a feature. See how it works on Omarchy, what you used to reach for, and the binding if there is one. Coming-from-Mac and coming-from-Windows modes reorder the translation table. Honest gaps stay on the page.
+Three columns. Feature rows grouped by category. Each cell is Better / Has it / Different / No. Search filters live (name, category, aliases such as spotlight, airdrop, tiling). Click a row for one line of detail — not an essay.
 
 This site never writes “4.1”.
 
@@ -62,7 +62,7 @@ This repo is ready for [Railway](https://railway.com) with TLS on a custom domai
 - `server.mjs` binds `0.0.0.0:$PORT` and serves the static export
 - Attach `omarchycompare.com` in the Railway service (TLS terminates on Railway)
 
-You do not need extra env vars. The parent can attach the domain after the first successful deploy.
+You do not need extra env vars.
 
 ## Official links
 
