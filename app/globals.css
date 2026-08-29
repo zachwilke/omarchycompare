@@ -157,6 +157,41 @@
   }
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+.omarchy-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-small) var(--space-medium);
+  background: var(--color-background-storm);
+  border-bottom: var(--border-width) solid var(--border-color);
+  padding: var(--space-small) var(--space-medium);
+  padding-top: max(var(--space-small), env(safe-area-inset-top));
+}
+
+.omarchy-wordmark {
+  color: var(--color-green);
+  font-family: var(--font-family);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media (hover: hover) {
+  .omarchy-wordmark:hover {
+    color: var(--color-turquoise);
+  }
+}
+
 /* Wordmark — modest one-liner, not the omarchy.org ASCII masthead. */
 .omarchy-pre {
   display: grid;
@@ -200,7 +235,9 @@
 .omarchy-header h1 {
   font-size: var(--font-size-medium);
   font-weight: 300;
+  overflow-wrap: anywhere;
   text-align: center;
+  text-wrap: balance;
 }
 
 .omarchy-nav {
@@ -295,12 +332,15 @@
   background: var(--color-background-storm);
   border: var(--border-width) solid var(--border-color);
   border-radius: 0;
+  box-sizing: border-box;
   caret-color: var(--color-terminal-cyan);
   color: var(--color-terminal-blue);
   font-family: inherit;
   font-size: 1em;
   font-weight: 300;
   height: 2.9em;
+  max-width: 100%;
+  min-width: 0;
   outline: none;
   padding-inline: 2.4em var(--space-medium);
   transition: border-color var(--transition);
@@ -377,11 +417,105 @@
   }
 }
 
+.compare-toolbar {
+  min-width: 0;
+}
+
+.compare-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em 1.25em;
+}
+
+.compare-cards {
+  display: grid;
+  gap: var(--space-medium);
+}
+
+.compare-card-heading {
+  color: var(--color-terminal-cyan);
+  font-size: 1em;
+  font-weight: 300;
+  margin: var(--space-medium) 0 var(--space-small);
+  text-transform: uppercase;
+}
+
+.compare-card-group:first-child .compare-card-heading {
+  margin-top: 0;
+}
+
+.compare-card {
+  background: var(--color-background-storm);
+  border: var(--border-width) solid var(--border-color);
+  cursor: pointer;
+  outline: none;
+  padding: var(--space-medium);
+}
+
+.compare-card.is-open {
+  background: var(--color-background-night);
+}
+
+.compare-card__name {
+  color: var(--color-terminal-white);
+  font-size: 1em;
+  font-weight: 300;
+  overflow-wrap: anywhere;
+}
+
+.compare-card__detail {
+  color: var(--color-terminal-cyan);
+  margin-top: 0.5em;
+}
+
+.compare-card__cells {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-small);
+  margin-top: var(--space-medium);
+}
+
+.compare-card__cell {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  min-width: 0;
+  text-align: center;
+}
+
+.compare-card__label {
+  color: var(--color-terminal-blue);
+  font-size: var(--font-size-small);
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
 .compare-sheet {
   background: var(--color-background-storm);
   border: var(--border-width) solid var(--border-color);
   overflow-x: auto;
   overflow-y: visible;
+}
+
+@media (max-width: 47.99rem) {
+  .omarchy-pre,
+  .omarchy-button--masthead,
+  .compare-sheet {
+    display: none;
+  }
+
+  .omarchy-sticky .omarchy-button {
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 48rem) {
+  .compare-cards {
+    display: none;
+  }
 }
 
 .compare-sticky-head {

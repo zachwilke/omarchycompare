@@ -29,6 +29,22 @@ function ManualIcon() {
 export function SiteHeader() {
   return (
     <>
+      <div className="omarchy-sticky">
+        <a href={OMARCHY_URL} target="_blank" rel="noreferrer" className="omarchy-wordmark">
+          OMARCHY
+        </a>
+        <a
+          href={OMARCHY_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="omarchy-button"
+          aria-label="Get Omarchy"
+        >
+          <IsoIcon />
+          <span>Get Omarchy</span>
+        </a>
+      </div>
+
       <div className="omarchy-pre">
         <a href={OMARCHY_URL} target="_blank" rel="noreferrer">
           <pre>OMARCHY</pre>
@@ -44,7 +60,7 @@ export function SiteHeader() {
           href={OMARCHY_URL}
           target="_blank"
           rel="noreferrer"
-          className="omarchy-button"
+          className="omarchy-button omarchy-button--masthead"
           aria-label="Get Omarchy"
         >
           <IsoIcon />

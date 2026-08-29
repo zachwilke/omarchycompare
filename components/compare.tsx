@@ -51,6 +51,10 @@ function Mark({ verdict }: { verdict: Verdict }) {
   );
 }
 
+function featureDetail(feature: Feature) {
+  return feature.binding ? `${feature.tease} ${feature.binding}.` : feature.tease;
+}
+
 export function Compare() {
   const [query, setQuery] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
@@ -63,10 +67,14 @@ export function Compare() {
     setOpenId(null);
   }
 
+  function toggle(id: string) {
+    setOpenId((current) => (current === id ? null : id));
+  }
+
   return (
     <section id="compare" className="mt-[var(--space-large)] px-4 sm:px-6">
-      <div className="mx-auto max-w-5xl">
-        <label className="relative block">
+      <div className="compare-toolbar mx-auto max-w-5xl">
+        <label className="relative block min-w-0">
           <span className="sr-only">Filter feature rows</span>
           <span
             aria-hidden
@@ -83,7 +91,7 @@ export function Compare() {
             value={query}
             onChange={(event) => onSearch(event.currentTarget.value)}
             onInput={(event) => onSearch(event.currentTarget.value)}
-            placeholder="filter features — spotlight, airdrop, tiling"
+            placeholder="spotlight, airdrop, tiling"
             className="omarchy-search"
           />
         </label>
@@ -94,7 +102,7 @@ export function Compare() {
             : `${visible.length} sourced rows · tap a row for one line`}
         </p>
 
-        <p className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-terminal-white/60">
+        <p className="compare-legend mt-3 text-terminal-white/60">
           <span className="inline-flex items-center gap-1.5">
             <Check className="size-3.5 stroke-[2.4] text-terminal-cyan" aria-hidden />
             Better
@@ -113,69 +121,115 @@ export function Compare() {
           </span>
         </p>
 
-        <div className="compare-sheet mt-5">
-          <table className="w-full min-w-[36rem] border-collapse">
-            <thead>
-              <tr>
-                <th
-                  scope="col"
-                  className="compare-sticky-corner bg-storm px-3 py-3 text-left font-normal uppercase text-terminal-white/60"
-                >
-                  Feature
-                </th>
-                {COLUMNS.map((column) => (
-                  <th
-                    key={column.id}
-                    scope="col"
-                    className="compare-sticky-head bg-storm px-2 py-3 text-center font-normal uppercase text-terminal-blue"
-                  >
-                    {column.label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            {groups.length === 0 ? (
-              <tbody>
-                <tr>
-                  <td
-                    colSpan={4}
-                    className="px-3 py-14 text-center text-terminal-white/60"
-                  >
-                    No rows match. Try spotlight, airdrop, or tiling.
-                  </td>
-                </tr>
-              </tbody>
-            ) : (
-              groups.map((group) => (
-                <tbody key={group.category} className="align-middle">
-                  <tr>
-                    <th
-                      scope="colgroup"
-                      colSpan={4}
-                      className="compare-sticky-col bg-storm px-3 pb-1 pt-7 text-left font-normal uppercase text-terminal-cyan"
-                    >
-                      {group.category}
-                    </th>
-                  </tr>
+        {groups.length === 0 ? (
+          <p className="mt-8 text-center text-terminal-white/60">
+            No rows match. Try spotlight, airdrop, or tiling.
+          </p>
+        ) : (
+          <>
+            <div className="compare-cards mt-5">
+              {groups.map((group) => (
+                <section key={group.category} className="compare-card-group">
+                  <h2 className="compare-card-heading">{group.category}</h2>
                   {group.rows.map((feature) => (
-                    <FeatureRow
+                    <FeatureCard
                       key={feature.id}
                       feature={feature}
                       open={openId === feature.id}
-                      onToggle={() =>
-                        setOpenId((current) =>
-                          current === feature.id ? null : feature.id,
-                        )
-                      }
+                      onToggle={() => toggle(feature.id)}
                     />
                   ))}
-                </tbody>
-              ))
-            )}
-          </table>
-        </div>
+                </section>
+              ))}
+            </div>
+
+            <div className="compare-sheet mt-5">
+              <table className="w-full min-w-[36rem] border-collapse">
+                <thead>
+                  <tr>
+                    <th
+                      scope="col"
+                      className="compare-sticky-corner bg-storm px-3 py-3 text-left font-normal uppercase text-terminal-white/60"
+                    >
+                      Feature
+                    </th>
+                    {COLUMNS.map((column) => (
+                      <th
+                        key={column.id}
+                        scope="col"
+                        className="compare-sticky-head bg-storm px-2 py-3 text-center font-normal uppercase text-terminal-blue"
+                      >
+                        {column.label}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                {groups.map((group) => (
+                  <tbody key={group.category} className="align-middle">
+                    <tr>
+                      <th
+                        scope="colgroup"
+                        colSpan={4}
+                        className="compare-sticky-col bg-storm px-3 pb-1 pt-7 text-left font-normal uppercase text-terminal-cyan"
+                      >
+                        {group.category}
+                      </th>
+                    </tr>
+                    {group.rows.map((feature) => (
+                      <FeatureRow
+                        key={feature.id}
+                        feature={feature}
+                        open={openId === feature.id}
+                        onToggle={() => toggle(feature.id)}
+                      />
+                    ))}
+                  </tbody>
+                ))}
+              </table>
+            </div>
+          </>
+        )}
       </div>
     </section>
+  );
+}
+
+function FeatureCard({
+  feature,
+  open,
+  onToggle,
+}: {
+  feature: Feature;
+  open: boolean;
+  onToggle: () => void;
+}) {
+  function onKeyDown(event: KeyboardEvent<HTMLElement>) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onToggle();
+    }
+  }
+
+  return (
+    <article
+      role="button"
+      tabIndex={0}
+      aria-expanded={open}
+      onClick={onToggle}
+      onKeyDown={onKeyDown}
+      className={cn("compare-card", open && "is-open")}
+    >
+      <h3 className="compare-card__name">{feature.name}</h3>
+      {open && <p className="compare-card__detail">{featureDetail(feature)}</p>}
+      <div className="compare-card__cells">
+        {COLUMNS.map((column) => (
+          <div key={column.id} className="compare-card__cell">
+            <span className="compare-card__label">{column.label}</span>
+            <Mark verdict={feature.columns[column.id].verdict} />
+          </div>
+        ))}
+      </div>
+    </article>
   );
 }
 
@@ -188,10 +242,6 @@ function FeatureRow({
   open: boolean;
   onToggle: () => void;
 }) {
-  const detail = feature.binding
-    ? `${feature.tease} ${feature.binding}.`
-    : feature.tease;
-
   function onKeyDown(event: KeyboardEvent<HTMLTableRowElement>) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -222,7 +272,7 @@ function FeatureRow({
         <span className="block text-terminal-white">{feature.name}</span>
         {open && (
           <span className="mt-1.5 block font-normal text-terminal-cyan">
-            {detail}
+            {featureDetail(feature)}
           </span>
         )}
       </th>
