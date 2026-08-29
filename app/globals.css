@@ -8,16 +8,17 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --rgb-background-night: 26, 27, 38;
-  --rgb-background-storm: 36, 40, 59;
+  /* Neighboring ink palette — not omarchy.org night/blue/green/turquoise. */
+  --rgb-background-night: 17, 21, 31;
+  --rgb-background-storm: 27, 33, 46;
   --rgb-black: 0, 0, 0;
-  --rgb-green: 158, 206, 106;
-  --rgb-terminal-black: 65, 72, 104;
-  --rgb-terminal-blue: 122, 162, 247;
-  --rgb-terminal-cyan: 125, 207, 255;
-  --rgb-terminal-white: 192, 202, 245;
-  --rgb-turquoise: 180, 249, 248;
-  --rgb-white: 255, 255, 255;
+  --rgb-green: 88, 168, 176;
+  --rgb-terminal-black: 52, 60, 76;
+  --rgb-terminal-blue: 140, 158, 178;
+  --rgb-terminal-cyan: 88, 168, 176;
+  --rgb-terminal-white: 214, 218, 226;
+  --rgb-turquoise: 118, 190, 194;
+  --rgb-white: 236, 238, 242;
 
   --color-background-night: rgb(var(--rgb-background-night));
   --color-background-storm: rgb(var(--rgb-background-storm));
@@ -30,16 +31,16 @@
   --color-turquoise: rgb(var(--rgb-turquoise));
   --color-white: rgb(var(--rgb-white));
 
-  --border-color: rgb(var(--rgb-terminal-black) / 0.8);
+  --border-color: rgb(var(--rgb-terminal-black) / 0.85);
   --border-width: max(1px, 0.0625em);
 
   --font-family: "JetBrains Mono", monospace;
-  --font-size: clamp(0.625rem, 1.25vw, 1rem);
+  --font-size: clamp(0.6875rem, 1.35vw, 1.0625rem);
   --font-size-small: 80%;
-  --font-size-medium: 125%;
-  --font-size-large: 200%;
+  --font-size-medium: 118%;
+  --font-size-large: 180%;
 
-  --line-height: 1.4;
+  --line-height: 1.45;
 
   --space-small: 0.5em;
   --space-medium: 1em;
@@ -50,7 +51,7 @@
   --space-xxx-large: 5em;
   --space-xxxx-large: 6em;
 
-  --transition: 0.15s cubic-bezier(0.33, 1, 0.68, 1);
+  --transition: 0.15s ease-out;
 
   --background: var(--color-background-night);
   --foreground: var(--color-terminal-blue);
@@ -70,7 +71,7 @@
   --border: var(--border-color);
   --input: var(--border-color);
   --ring: var(--color-terminal-cyan);
-  --radius: 0.4em;
+  --radius: 0.125em;
 }
 
 @theme inline {
@@ -78,14 +79,14 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-family);
   --font-mono: var(--font-family);
-  --color-night: rgb(26 27 38);
-  --color-storm: rgb(36 40 59);
-  --color-green: rgb(158 206 106);
-  --color-terminal-black: rgb(65 72 104);
-  --color-terminal-blue: rgb(122 162 247);
-  --color-terminal-cyan: rgb(125 207 255);
-  --color-terminal-white: rgb(192 202 245);
-  --color-turquoise: rgb(180 249 248);
+  --color-night: rgb(17 21 31);
+  --color-storm: rgb(27 33 46);
+  --color-green: rgb(88 168 176);
+  --color-terminal-black: rgb(52 60 76);
+  --color-terminal-blue: rgb(140 158 178);
+  --color-terminal-cyan: rgb(88 168 176);
+  --color-terminal-white: rgb(214 218 226);
+  --color-turquoise: rgb(118 190 194);
   --color-sidebar-ring: var(--ring);
   --color-sidebar-border: var(--border);
   --color-sidebar-accent-foreground: var(--accent-foreground);
@@ -110,10 +111,10 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: 0.4em;
-  --radius-md: 0.4em;
-  --radius-lg: 0.4em;
-  --radius-xl: 0.4em;
+  --radius-sm: 0.125em;
+  --radius-md: 0.125em;
+  --radius-lg: 0.2em;
+  --radius-xl: 0.2em;
 }
 
 @layer base {
@@ -163,44 +164,28 @@ body {
   overflow-x: hidden;
 }
 
-/* Official Omarchy ASCII wordmark — Manual-scale, not the homepage masthead. */
-.omarchy-pre {
+.site-wordmark {
   display: grid;
   margin-top: var(--space-x-large);
-  padding-inline: var(--space-medium);
+  padding-inline: var(--space-large);
 }
 
-.omarchy-pre a {
-  color: var(--color-green);
+.site-wordmark a {
+  color: var(--color-terminal-white);
+  font-size: clamp(1.15rem, 2.8vw, 1.6rem);
   font-weight: 400;
   justify-self: center;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
   text-decoration: none;
-  width: 100%;
-}
-
-.omarchy-pre pre {
-  color: var(--color-green);
-  font-family: var(--font-family);
-  font-size: clamp(0.34rem, 1.1vw, 0.62rem);
-  font-weight: 400;
-  justify-self: center;
-  letter-spacing: -0.0425em;
-  line-height: 1.09375;
-  margin: 0 auto;
-  overflow-x: hidden;
-  text-align: center;
-  transition: color var(--transition);
-  white-space: pre;
-  width: 100%;
 }
 
 @media (hover: hover) {
-  .omarchy-pre a:hover pre {
-    color: var(--color-turquoise);
+  .site-wordmark a:hover {
+    color: var(--color-terminal-cyan);
   }
 }
 
-/* One-line header under the wordmark, then content — same rhythm as omarchy.org. */
 .omarchy-header {
   display: grid;
   margin-top: var(--space-medium);
@@ -231,7 +216,7 @@ body {
 }
 
 @media (min-width: 64em) {
-  .omarchy-pre,
+  .site-wordmark,
   .omarchy-header,
   .omarchy-nav {
     padding-inline: var(--space-xx-large);
@@ -245,26 +230,20 @@ body {
 
 .omarchy-button {
   align-items: center;
-  background: var(--color-terminal-blue);
-  border: none;
-  border-radius: 0.4em;
-  box-shadow:
-    0 1px 0 0 rgb(var(--rgb-black) / 0.1),
-    0 0.2em 1.2em -0.4em rgb(var(--rgb-black) / 0.2),
-    0 0.4em 2em -0.8em rgb(var(--rgb-black) / 0.3),
-    0 0.4em 0.4em -0.8em rgb(var(--rgb-black) / 0.4),
-    0 0.8em 0.8em -1.2em rgb(var(--rgb-black) / 0.5),
-    0 1.2em 1.2em -1.6em rgb(var(--rgb-black) / 0.6);
-  color: var(--color-background-night);
+  background: transparent;
+  border: var(--border-width) solid var(--color-terminal-cyan);
+  border-radius: 0.125em;
+  box-shadow: none;
+  color: var(--color-terminal-cyan);
   cursor: pointer;
   display: flex;
-  font-weight: 700;
+  font-weight: 400;
   gap: 1ch;
-  height: 2.9em;
+  height: 2.35em;
   line-height: 1;
-  padding-inline: var(--space-medium);
+  padding-inline: 1.1em;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
   transition:
     background var(--transition),
     color var(--transition);
@@ -283,7 +262,7 @@ body {
 
 @media (hover: hover) {
   .omarchy-button:hover {
-    background: var(--color-turquoise);
+    background: var(--color-terminal-cyan);
     color: var(--color-background-night);
   }
 }
@@ -313,7 +292,7 @@ body {
   font-family: inherit;
   font-size: 1em;
   font-weight: 300;
-  height: 2.9em;
+  height: 2.4em;
   max-width: 100%;
   min-width: 0;
   outline: none;
@@ -354,56 +333,11 @@ body {
   margin-inline: 1ch;
 }
 
-.omarchy-footer__icon {
-  color: inherit;
-  display: inline-block;
-  font-weight: inherit;
-  text-decoration: none;
-}
-
-.omarchy-footer__icon img {
-  display: inline-block;
-  height: 1.15em;
-  pointer-events: none;
-  vertical-align: -0.2em;
-  width: 1.15em;
-}
-
-.omarchy-footer__icon strong,
-.omarchy-footer strong {
-  color: var(--color-terminal-cyan);
-  display: inline-block;
-  font-weight: 700;
-}
-
-.omarchy-footer__icon strong {
-  margin-left: 0.4em;
-}
-
 .omarchy-footer__disclaimer {
-  color: rgb(var(--rgb-terminal-white) / 0.5);
-  font-weight: 300;
-  max-width: 46ch;
+  color: rgb(var(--rgb-terminal-white) / 0.72);
+  font-weight: 400;
+  max-width: 48ch;
   justify-self: center;
-}
-
-@media (hover: hover) {
-  .omarchy-footer__icon strong,
-  .omarchy-footer a strong {
-    transition: color var(--transition);
-  }
-
-  .omarchy-footer__icon:hover,
-  .omarchy-footer__icon:focus {
-    color: inherit;
-  }
-
-  .omarchy-footer__icon:hover strong,
-  .omarchy-footer__icon:focus strong,
-  .omarchy-footer a:hover strong,
-  .omarchy-footer a:focus strong {
-    color: var(--color-white);
-  }
 }
 
 .compare-toolbar {
@@ -493,7 +427,7 @@ body {
     display: none;
   }
 
-  .omarchy-pre {
+  .site-wordmark {
     margin-top: var(--space-large);
   }
 
