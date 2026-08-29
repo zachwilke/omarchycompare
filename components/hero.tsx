@@ -6,8 +6,11 @@ export function Hero() {
       <p className="text-center text-[color:rgb(var(--rgb-terminal-white)/0.6)]">
         {VERSION_BADGE}
       </p>
-      <p className="mx-auto mt-[var(--space-small)] max-w-xl text-center text-[color:rgb(var(--rgb-terminal-white)/0.6)]">
-        A searchable sheet. Not an essay.
+      <p className="omarchy-lede">
+        Omarchy is the desktop for people who actually run a machine: keyboard
+        first, windows that tile, one shell instead of a pile of daemons. This
+        is what an OS looks like when the dock, the icons, and the app store are
+        the past.
       </p>
     </div>
   );

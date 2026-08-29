@@ -209,6 +209,17 @@ body {
   padding-inline: var(--space-large);
 }
 
+.omarchy-lede {
+  color: rgb(var(--rgb-terminal-white) / 0.7);
+  font-weight: 300;
+  line-height: 1.55;
+  margin-inline: auto;
+  margin-top: var(--space-medium);
+  max-width: 36rem;
+  text-align: center;
+  text-wrap: pretty;
+}
+
 .omarchy-main {
   display: grid;
   margin-bottom: var(--space-xx-large);
