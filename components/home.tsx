@@ -8,7 +8,7 @@ export function Home() {
     <div id="top" className="flex min-h-full flex-col">
       <a
         href="#compare"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-gold focus:px-3 focus:py-2 focus:text-[#1a140c]"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-[var(--color-terminal-blue)] focus:px-3 focus:py-2 focus:text-[var(--color-background-night)]"
       >
         Skip to compare
       </a>

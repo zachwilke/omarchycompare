@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, type KeyboardEvent } from "react";
-import { Check, Minus, Search } from "lucide-react";
+import { Check, Minus } from "lucide-react";
 import { groupByCategory, searchFeatures } from "@/lib/search";
 import type { Feature, Verdict } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -17,9 +17,7 @@ function Mark({ verdict }: { verdict: Verdict }) {
     return (
       <span className="inline-flex items-center justify-center" title="Better">
         <span className="sr-only">Better</span>
-        <span className="flex size-6 items-center justify-center rounded-full bg-gold text-[#1a140c]">
-          <Check className="size-3.5 stroke-[2.6]" aria-hidden />
-        </span>
+        <Check className="size-4 stroke-[2.4] text-terminal-cyan" aria-hidden />
       </span>
     );
   }
@@ -28,7 +26,7 @@ function Mark({ verdict }: { verdict: Verdict }) {
     return (
       <span className="inline-flex items-center justify-center" title="Has it">
         <span className="sr-only">Has it</span>
-        <Check className="size-4 stroke-[2.2] text-cream/85" aria-hidden />
+        <Check className="size-4 stroke-[2.4] text-green" aria-hidden />
       </span>
     );
   }
@@ -36,7 +34,7 @@ function Mark({ verdict }: { verdict: Verdict }) {
   if (verdict === "different") {
     return (
       <span
-        className="inline-flex items-center justify-center font-display text-lg leading-none text-muted-foreground"
+        className="inline-flex items-center justify-center text-[1.1em] leading-none text-terminal-white/55"
         title="Different"
       >
         <span className="sr-only">Different</span>
@@ -48,7 +46,7 @@ function Mark({ verdict }: { verdict: Verdict }) {
   return (
     <span className="inline-flex items-center justify-center" title="No">
       <span className="sr-only">No</span>
-      <Minus className="size-4 text-muted-foreground/55" aria-hidden />
+      <Minus className="size-4 text-terminal-white/40" aria-hidden />
     </span>
   );
 }
@@ -66,14 +64,16 @@ export function Compare() {
   }
 
   return (
-    <section id="compare" className="px-4 pb-20 sm:px-6">
+    <section id="compare" className="px-4 pb-16 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <label className="relative block">
           <span className="sr-only">Filter feature rows</span>
-          <Search
-            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+          <span
             aria-hidden
-          />
+            className="pointer-events-none absolute left-[0.85em] top-1/2 -translate-y-1/2 text-terminal-white/45"
+          >
+            &gt;
+          </span>
           <input
             type="text"
             inputMode="search"
@@ -84,44 +84,42 @@ export function Compare() {
             onChange={(event) => onSearch(event.currentTarget.value)}
             onInput={(event) => onSearch(event.currentTarget.value)}
             placeholder="Search features — spotlight, airdrop, tiling…"
-            className="h-11 w-full rounded-lg border border-white/10 bg-transparent pl-10 pr-3 text-sm text-cream outline-none placeholder:text-muted-foreground focus-visible:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/20"
+            className="omarchy-search"
           />
         </label>
 
-        <p className="mt-3 text-xs text-muted-foreground" aria-live="polite">
+        <p className="mt-3 text-terminal-white/60" aria-live="polite">
           {query.trim()
             ? `${visible.length} ${visible.length === 1 ? "row" : "rows"} match “${query.trim()}”`
             : `${visible.length} sourced rows · tap a row for one line`}
         </p>
 
-        <p className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-[11px] tracking-[0.04em] text-muted-foreground">
+        <p className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-terminal-white/60">
           <span className="inline-flex items-center gap-1.5">
-            <span className="flex size-4 items-center justify-center rounded-full bg-gold text-[#1a140c]">
-              <Check className="size-2.5 stroke-[2.6]" aria-hidden />
-            </span>
+            <Check className="size-3.5 stroke-[2.4] text-terminal-cyan" aria-hidden />
             Better
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Check className="size-3.5 text-cream/80" aria-hidden />
+            <Check className="size-3.5 stroke-[2.4] text-green" aria-hidden />
             Has it
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="text-sm leading-none">≠</span>
+            <span className="text-terminal-white/55">≠</span>
             Different
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Minus className="size-3.5 text-muted-foreground/55" aria-hidden />
+            <Minus className="size-3.5 text-terminal-white/40" aria-hidden />
             No
           </span>
         </p>
 
-        <div className="compare-sheet mt-6">
-          <table className="w-full min-w-[36rem] border-collapse text-sm">
+        <div className="compare-sheet mt-5">
+          <table className="w-full min-w-[36rem] border-collapse">
             <thead>
               <tr>
                 <th
                   scope="col"
-                  className="compare-sticky-corner bg-background px-3 py-3 text-left text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground"
+                  className="compare-sticky-corner bg-storm px-3 py-3 text-left font-normal uppercase text-terminal-white/60"
                 >
                   Feature
                 </th>
@@ -129,7 +127,7 @@ export function Compare() {
                   <th
                     key={column.id}
                     scope="col"
-                    className="compare-sticky-head bg-background px-2 py-3 text-center text-[11px] font-medium uppercase tracking-[0.16em] text-cream"
+                    className="compare-sticky-head bg-storm px-2 py-3 text-center font-normal uppercase text-terminal-blue"
                   >
                     {column.label}
                   </th>
@@ -141,7 +139,7 @@ export function Compare() {
                 <tr>
                   <td
                     colSpan={4}
-                    className="px-3 py-16 text-center text-muted-foreground"
+                    className="px-3 py-14 text-center text-terminal-white/60"
                   >
                     No rows match. Try spotlight, airdrop, or tiling.
                   </td>
@@ -154,7 +152,7 @@ export function Compare() {
                     <th
                       scope="colgroup"
                       colSpan={4}
-                      className="compare-sticky-col bg-background px-3 pb-1 pt-8 text-left text-[11px] font-medium uppercase tracking-[0.18em] text-gold"
+                      className="compare-sticky-col bg-storm px-3 pb-1 pt-7 text-left font-normal uppercase text-terminal-cyan"
                     >
                       {group.category}
                     </th>
@@ -209,25 +207,27 @@ function FeatureRow({
       onClick={onToggle}
       onKeyDown={onKeyDown}
       className={cn(
-        "cursor-pointer border-t border-white/[0.06] outline-none transition-colors focus-visible:bg-gold/[0.06]",
-        open ? "bg-gold/[0.05]" : "hover:bg-white/[0.02]",
+        "cursor-pointer border-t outline-none",
+        open ? "bg-night" : "hover:bg-night/50",
       )}
+      style={{ borderColor: "var(--border-color)" }}
     >
       <th
         scope="row"
-        className="compare-sticky-col bg-background px-3 py-3.5 text-left font-normal"
+        className={cn(
+          "compare-sticky-col px-3 py-3 text-left font-normal",
+          open ? "bg-night" : "bg-storm",
+        )}
       >
-        <span className="block text-[0.95rem] leading-snug text-cream/90">
-          {feature.name}
-        </span>
+        <span className="block text-terminal-white">{feature.name}</span>
         {open && (
-          <span className="mt-1.5 block text-[0.8rem] font-normal leading-snug text-gold/90">
+          <span className="mt-1.5 block font-normal text-terminal-cyan">
             {detail}
           </span>
         )}
       </th>
       {COLUMNS.map((column) => (
-        <td key={column.id} className="px-2 py-3.5 text-center">
+        <td key={column.id} className="px-2 py-3 text-center">
           <Mark verdict={feature.columns[column.id].verdict} />
         </td>
       ))}

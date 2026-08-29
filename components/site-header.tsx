@@ -1,30 +1,17 @@
-import { buttonVariants } from "@/components/ui/button";
-import { OMARCHY_URL, VERSION_BADGE } from "@/lib/features";
-import { cn } from "@/lib/utils";
+import { OMARCHY_URL } from "@/lib/features";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/8 bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4 sm:px-6">
-        <a
-          href={OMARCHY_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="min-w-0 text-sm tracking-tight text-cream"
-        >
-          <span className="font-display text-lg">Omarchy</span>
-          <span className="ml-2 hidden text-muted-foreground sm:inline">
-            {VERSION_BADGE}
-          </span>
+    <header className="border-b" style={{ borderColor: "var(--border-color)" }}>
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 py-4 sm:px-6">
+        <a href={OMARCHY_URL} target="_blank" rel="noreferrer" className="omarchy-wordmark text-[1.05em]">
+          OMARCHY
         </a>
         <a
           href={OMARCHY_URL}
           target="_blank"
           rel="noreferrer"
-          className={cn(
-            buttonVariants(),
-            "h-8 bg-gold px-3 text-[#1a140c] hover:bg-gold/90",
-          )}
+          className="omarchy-button"
         >
           Get Omarchy
         </a>
