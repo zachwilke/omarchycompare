@@ -26,7 +26,7 @@ function Mark({ verdict }: { verdict: Verdict }) {
     return (
       <span className="inline-flex items-center justify-center" title="Has it">
         <span className="sr-only">Has it</span>
-        <Check className="size-4 stroke-[2.4] text-green" aria-hidden />
+        <Check className="size-4 stroke-[2.4] text-terminal-white/80" aria-hidden />
       </span>
     );
   }
@@ -72,7 +72,7 @@ export function Compare() {
   }
 
   return (
-    <section id="compare" className="mt-[var(--space-large)] px-4 sm:px-6">
+    <section id="compare" className="compare-section">
       <div className="compare-toolbar mx-auto max-w-5xl">
         <label className="relative block min-w-0">
           <span className="sr-only">Filter feature rows</span>
@@ -96,19 +96,19 @@ export function Compare() {
           />
         </label>
 
-        <p className="mt-3 text-terminal-white/60" aria-live="polite">
+        <p className="mt-3 text-terminal-white/70" aria-live="polite">
           {query.trim()
             ? `${visible.length} ${visible.length === 1 ? "row" : "rows"} match “${query.trim()}”`
             : `${visible.length} sourced rows · tap a row for one line`}
         </p>
 
-        <p className="compare-legend mt-3 text-terminal-white/60">
+        <p className="compare-legend mt-3 text-terminal-white/70">
           <span className="inline-flex items-center gap-1.5">
             <Check className="size-3.5 stroke-[2.4] text-terminal-cyan" aria-hidden />
             Better
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Check className="size-3.5 stroke-[2.4] text-green" aria-hidden />
+            <Check className="size-3.5 stroke-[2.4] text-terminal-white/80" aria-hidden />
             Has it
           </span>
           <span className="inline-flex items-center gap-1.5">
@@ -144,12 +144,18 @@ export function Compare() {
             </div>
 
             <div className="compare-sheet mt-5">
-              <table className="w-full min-w-[36rem] border-collapse">
+              <table className="compare-table">
+                <colgroup>
+                  <col className="compare-col-feature" />
+                  <col className="compare-col-os" />
+                  <col className="compare-col-os" />
+                  <col className="compare-col-os" />
+                </colgroup>
                 <thead>
                   <tr>
                     <th
                       scope="col"
-                      className="compare-sticky-corner bg-storm px-3 py-3 text-left font-normal uppercase text-terminal-white/60"
+                      className="compare-sticky-corner bg-storm px-3 py-2.5 text-left font-normal uppercase text-terminal-white/70"
                     >
                       Feature
                     </th>
@@ -157,7 +163,7 @@ export function Compare() {
                       <th
                         key={column.id}
                         scope="col"
-                        className="compare-sticky-head bg-storm px-2 py-3 text-center font-normal uppercase text-terminal-blue"
+                        className="compare-sticky-head bg-storm px-2 py-2.5 text-center font-normal uppercase text-terminal-blue"
                       >
                         {column.label}
                       </th>
@@ -170,7 +176,7 @@ export function Compare() {
                       <th
                         scope="colgroup"
                         colSpan={4}
-                        className="compare-sticky-col bg-storm px-3 pb-1 pt-7 text-left font-normal uppercase text-terminal-cyan"
+                        className="compare-sticky-col compare-group-head bg-storm px-3 text-left font-normal uppercase text-terminal-cyan"
                       >
                         {group.category}
                       </th>
@@ -265,7 +271,7 @@ function FeatureRow({
       <th
         scope="row"
         className={cn(
-          "compare-sticky-col px-3 py-3 text-left font-normal",
+          "compare-sticky-col compare-row-name px-3 text-left font-normal",
           open ? "bg-night" : "bg-storm",
         )}
       >
@@ -277,7 +283,7 @@ function FeatureRow({
         )}
       </th>
       {COLUMNS.map((column) => (
-        <td key={column.id} className="px-2 py-3 text-center">
+        <td key={column.id} className="compare-row-mark px-2 text-center">
           <Mark verdict={feature.columns[column.id].verdict} />
         </td>
       ))}
