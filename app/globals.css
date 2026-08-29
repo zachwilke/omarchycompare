@@ -44,6 +44,10 @@
   --space-medium: 1em;
   --space-neutral: 1.5em;
   --space-large: 2em;
+  --space-x-large: 3em;
+  --space-xx-large: 4em;
+  --space-xxx-large: 5em;
+  --space-xxxx-large: 6em;
 
   --transition: 0.15s cubic-bezier(0.33, 1, 0.68, 1);
 
@@ -119,9 +123,11 @@
   }
 
   body {
+    align-items: stretch;
     background: var(--color-background-night);
     color: var(--color-terminal-blue);
     display: flex;
+    min-height: 100vh;
     min-height: 100dvh;
     flex-direction: column;
     font-family: var(--font-family);
@@ -139,15 +145,89 @@
     transition: color var(--transition);
   }
 
+  strong,
+  b {
+    font-weight: 700;
+  }
+
   @media (hover: hover) {
     a:hover {
       color: var(--color-white);
     }
   }
+}
 
-  strong,
-  b {
-    font-weight: 700;
+/* Wordmark — modest one-liner, not the omarchy.org ASCII masthead. */
+.omarchy-pre {
+  display: grid;
+  margin-top: var(--space-x-large);
+  padding-inline: var(--space-large);
+}
+
+.omarchy-pre a {
+  color: var(--color-green);
+  font-weight: 300;
+  justify-self: center;
+  text-decoration: none;
+}
+
+.omarchy-pre pre {
+  color: var(--color-green);
+  font-family: var(--font-family);
+  font-size: clamp(1.15rem, 3.2vw, 2rem);
+  font-weight: 700;
+  justify-self: center;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  margin: 0;
+  transition: color var(--transition);
+  white-space: pre;
+}
+
+@media (hover: hover) {
+  .omarchy-pre a:hover pre {
+    color: var(--color-turquoise);
+  }
+}
+
+/* One-line header under the wordmark, then content — same rhythm as omarchy.org. */
+.omarchy-header {
+  display: grid;
+  margin-top: var(--space-medium);
+  padding-inline: var(--space-large);
+}
+
+.omarchy-header h1 {
+  font-size: var(--font-size-medium);
+  font-weight: 300;
+  text-align: center;
+}
+
+.omarchy-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-medium);
+  justify-content: center;
+  margin-top: var(--space-large);
+  padding-inline: var(--space-large);
+}
+
+.omarchy-main {
+  display: grid;
+  margin-bottom: var(--space-xx-large);
+  margin-top: calc(var(--space-large) * 1.2);
+}
+
+@media (min-width: 64em) {
+  .omarchy-pre,
+  .omarchy-header,
+  .omarchy-nav {
+    padding-inline: var(--space-xx-large);
+  }
+
+  .omarchy-main {
+    margin-bottom: var(--space-xxxx-large);
+    margin-top: calc(var(--space-x-large) * 1.2);
   }
 }
 
@@ -159,10 +239,13 @@
   box-shadow:
     0 1px 0 0 rgb(var(--rgb-black) / 0.1),
     0 0.2em 1.2em -0.4em rgb(var(--rgb-black) / 0.2),
-    0 0.4em 2em -0.8em rgb(var(--rgb-black) / 0.3);
+    0 0.4em 2em -0.8em rgb(var(--rgb-black) / 0.3),
+    0 0.4em 0.4em -0.8em rgb(var(--rgb-black) / 0.4),
+    0 0.8em 0.8em -1.2em rgb(var(--rgb-black) / 0.5),
+    0 1.2em 1.2em -1.6em rgb(var(--rgb-black) / 0.6);
   color: var(--color-background-night);
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   font-weight: 700;
   gap: 1ch;
   height: 2.9em;
@@ -175,9 +258,22 @@
     color var(--transition);
 }
 
-.omarchy-button:hover {
-  background: var(--color-turquoise);
-  color: var(--color-background-night);
+.omarchy-button svg {
+  height: 1.4em;
+  overflow: visible;
+  width: 1.4em;
+}
+
+.omarchy-button span {
+  margin-bottom: -0.1875em;
+  margin-top: -0.125em;
+}
+
+@media (hover: hover) {
+  .omarchy-button:hover {
+    background: var(--color-turquoise);
+    color: var(--color-background-night);
+  }
 }
 
 .omarchy-link {
@@ -189,27 +285,16 @@
   transition: color var(--transition);
 }
 
-.omarchy-link:hover {
-  color: var(--color-white);
-}
-
-.omarchy-wordmark {
-  color: var(--color-green);
-  font-family: var(--font-family);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.omarchy-wordmark:hover {
-  color: var(--color-turquoise);
+@media (hover: hover) {
+  .omarchy-link:hover {
+    color: var(--color-white);
+  }
 }
 
 .omarchy-search {
   background: var(--color-background-storm);
   border: var(--border-width) solid var(--border-color);
-  border-radius: 0.4em;
+  border-radius: 0;
   caret-color: var(--color-terminal-cyan);
   color: var(--color-terminal-blue);
   font-family: inherit;
@@ -228,6 +313,68 @@
 
 .omarchy-search:focus {
   border-color: var(--color-terminal-cyan);
+}
+
+.omarchy-footer {
+  align-items: center;
+  border-top: var(--border-width) solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-large);
+  justify-content: space-between;
+  margin-top: auto;
+  padding: var(--space-large);
+}
+
+.omarchy-footer p {
+  color: rgb(var(--rgb-terminal-white) / 0.6);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  line-height: 2em;
+}
+
+.omarchy-footer__icon {
+  color: inherit;
+  display: inline-block;
+  font-weight: inherit;
+  text-decoration: none;
+}
+
+.omarchy-footer__icon svg {
+  color: var(--color-terminal-cyan);
+  display: inline-block;
+  height: 1.2em;
+  max-height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  vertical-align: -0.2125em;
+  width: auto;
+}
+
+.omarchy-footer__icon strong {
+  color: var(--color-terminal-cyan);
+  display: inline-block;
+  font-weight: 700;
+  margin-left: 0.35em;
+}
+
+@media (hover: hover) {
+  .omarchy-footer__icon svg,
+  .omarchy-footer__icon strong {
+    transition: color var(--transition);
+  }
+
+  .omarchy-footer__icon:hover,
+  .omarchy-footer__icon:focus {
+    color: inherit;
+  }
+
+  .omarchy-footer__icon:hover svg,
+  .omarchy-footer__icon:focus svg,
+  .omarchy-footer__icon:hover strong,
+  .omarchy-footer__icon:focus strong {
+    color: var(--color-white);
+  }
 }
 
 .compare-sheet {

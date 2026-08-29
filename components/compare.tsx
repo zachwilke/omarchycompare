@@ -64,13 +64,13 @@ export function Compare() {
   }
 
   return (
-    <section id="compare" className="px-4 pb-16 sm:px-6">
+    <section id="compare" className="mt-[var(--space-large)] px-4 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <label className="relative block">
           <span className="sr-only">Filter feature rows</span>
           <span
             aria-hidden
-            className="pointer-events-none absolute left-[0.85em] top-1/2 -translate-y-1/2 text-terminal-white/45"
+            className="pointer-events-none absolute left-[0.85em] top-1/2 -translate-y-1/2 text-terminal-cyan"
           >
             &gt;
           </span>
@@ -83,7 +83,7 @@ export function Compare() {
             value={query}
             onChange={(event) => onSearch(event.currentTarget.value)}
             onInput={(event) => onSearch(event.currentTarget.value)}
-            placeholder="Search features — spotlight, airdrop, tiling…"
+            placeholder="filter features — spotlight, airdrop, tiling"
             className="omarchy-search"
           />
         </label>

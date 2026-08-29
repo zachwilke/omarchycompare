@@ -8,12 +8,12 @@ export function Home() {
     <div id="top" className="flex min-h-full flex-col">
       <a
         href="#compare"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-[var(--color-terminal-blue)] focus:px-3 focus:py-2 focus:text-[var(--color-background-night)]"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-[var(--color-terminal-blue)] focus:px-3 focus:py-2 focus:text-[var(--color-background-night)] focus:no-underline"
       >
         Skip to compare
       </a>
       <SiteHeader />
-      <main>
+      <main className="omarchy-main">
         <Hero />
         <Compare />
       </main>
