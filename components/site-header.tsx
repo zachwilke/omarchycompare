@@ -1,4 +1,5 @@
 import { MANUAL_URL, OMARCHY_URL } from "@/lib/features";
+import { OMARCHY_WORDMARK } from "@/lib/omarchy-wordmark";
 
 function IsoIcon() {
   return (
@@ -31,8 +32,7 @@ export function SiteHeader() {
     <>
       <div className="omarchy-pre">
         <a href={OMARCHY_URL} target="_blank" rel="noreferrer" aria-label="Omarchy">
-          <pre>{` ▄▄▄
-OMARCHY`}</pre>
+          <pre>{OMARCHY_WORDMARK}</pre>
         </a>
       </div>
 

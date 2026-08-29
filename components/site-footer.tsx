@@ -1,29 +1,10 @@
+import Image from "next/image";
 import {
   OMACOM_ANNOUNCE_URL,
   OMACOM_URL,
   OMARCHY_URL,
   VERSION_BADGE,
 } from "@/lib/features";
-
-function MarkIcon() {
-  return (
-    <svg viewBox="0 0 16 16" aria-hidden>
-      <rect
-        x="1.5"
-        y="1.5"
-        width="13"
-        height="13"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M4 11.2 6.2 5h1.15L9.6 11.2H8.35l-.45-1.35H5.7L5.25 11.2H4zm1.95-2.35h1.7L6.85 6.2h-.1L5.95 8.85z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
 
 export function SiteFooter() {
   return (
@@ -35,7 +16,7 @@ export function SiteFooter() {
           rel="noreferrer"
           className="omarchy-footer__icon"
         >
-          <MarkIcon />
+          <Image src="/omarchy-favicon.png" alt="" width={16} height={16} />
           <strong>omarchy.org</strong>
         </a>
         <span className="omarchy-footer__dot">·</span>
@@ -43,19 +24,16 @@ export function SiteFooter() {
       </p>
       <p>
         Stewarded by the{" "}
-        <a
-          href={OMACOM_ANNOUNCE_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="omarchy-footer__icon"
-        >
-          <MarkIcon />
+        <a href={OMACOM_ANNOUNCE_URL} target="_blank" rel="noreferrer">
           <strong>Omacom Foundation</strong>
         </a>
         <span className="omarchy-footer__dot">·</span>
         <a href={OMACOM_URL} target="_blank" rel="noreferrer" className="omarchy-link">
           omacom.io
         </a>
+      </p>
+      <p className="omarchy-footer__disclaimer">
+        Not owned or managed by Omarchy or the Omacom Foundation. Just a loving user.
       </p>
     </footer>
   );
