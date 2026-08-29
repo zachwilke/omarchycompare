@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Omarchy 4.0.1 vs macOS Tahoe 26 vs Windows 11 25H2",
   description:
-    "Sourced comparison sheet: Omarchy 4.0.1 (Quattro) vs macOS Tahoe 26 vs Windows 11 25H2. Checks, not essays.",
+    "The keyboard OS. Tiling, one shell, one update — Omarchy 4.0.1 Quattro sourced against macOS Tahoe 26 and Windows 11 25H2.",
   icons: { icon: "/favicon.svg" },
 };
 

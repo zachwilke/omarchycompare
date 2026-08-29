@@ -7,7 +7,7 @@ export function Hero() {
         {VERSION_BADGE}
       </p>
       <p className="mx-auto mt-[var(--space-small)] max-w-xl text-center text-[color:rgb(var(--rgb-terminal-white)/0.6)]">
-        A sourced sheet for the same jobs. Checks, not essays.
+        A searchable sheet. Not an essay.
       </p>
     </div>
   );

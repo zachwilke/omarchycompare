@@ -1,11 +1,9 @@
 export type Category =
-  | "Desktop"
-  | "Windows"
-  | "Settings"
-  | "Apps"
-  | "Dev/AI"
-  | "Security"
-  | "Capture";
+  | "Future desktop"
+  | "Keyboard OS"
+  | "Builder OS"
+  | "Own the machine"
+  | "Honest tradeoffs";
 
 export type ComingFrom = "either" | "mac" | "windows";
 
