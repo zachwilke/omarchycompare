@@ -2,8 +2,7 @@ export type Category =
   | "Future desktop"
   | "Keyboard OS"
   | "Builder OS"
-  | "Own the machine"
-  | "Honest tradeoffs";
+  | "Own the machine";
 
 export type ComingFrom = "either" | "mac" | "windows";
 

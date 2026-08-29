@@ -6,7 +6,7 @@ The keyboard OS. Tiling, one shell, one update — sold to developers, sysadmins
 
 A fan-made compare sheet. It is dark and terminal-ish, but it uses its own ink palette and chrome — not omarchy.org’s logo, pills, or exact color tokens.
 
-Three columns. Rows grouped as a pitch: Future desktop, Keyboard OS, Builder OS, Own the machine, Honest tradeoffs last. Each cell is Better / Has it / Different / No. Search filters live (name, category, aliases such as spotlight, airdrop, tiling). Click a row for one line of detail — not an essay.
+Three columns. Rows grouped as a pitch: Future desktop, Keyboard OS, Builder OS, Own the machine. Each cell is Better / Has it / Different / No. Search filters live (name, category, aliases such as spotlight, tiling, update). Click a row for one line of detail — not an essay.
 
 This site never writes “4.1”.
 

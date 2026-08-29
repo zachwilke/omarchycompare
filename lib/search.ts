@@ -62,26 +62,6 @@ export const FEATURE_ALIASES: Record<string, string[]> = {
   setup: ["settings", "system settings", "system preferences", "control panel", "dotfiles"],
   "qr-capture": ["qr", "qr code", "otp", "otpauth"],
   "gift-reset": ["factory reset", "install for someone"],
-  "install-gate": ["secure boot", "tpm", "bios"],
-  "apple-services": [
-    "airdrop",
-    "imessage",
-    "facetime",
-    "icloud",
-    "continuity",
-    "handoff",
-    "localsend",
-  ],
-  hidpi: ["hidpi", "retina", "scaling", "mixed scale", "display"],
-  "lock-auth": [
-    "touch id",
-    "windows hello",
-    "fingerprint",
-    "fido",
-    "fido2",
-    "bitlocker",
-  ],
-  "intel-mac": ["apple silicon", "m-series", "intel mac", "dual-boot"],
 };
 
 export function searchHaystack(feature: Feature): string {

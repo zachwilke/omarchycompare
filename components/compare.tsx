@@ -91,7 +91,7 @@ export function Compare() {
             value={query}
             onChange={(event) => onSearch(event.currentTarget.value)}
             onInput={(event) => onSearch(event.currentTarget.value)}
-            placeholder="spotlight, airdrop, tiling"
+            placeholder="spotlight, tiling, update"
             className="omarchy-search"
           />
         </label>
@@ -123,7 +123,7 @@ export function Compare() {
 
         {groups.length === 0 ? (
           <p className="mt-8 text-center text-terminal-white/60">
-            No rows match. Try tiling, airdrop, or update.
+            No rows match. Try tiling, spotlight, or update.
           </p>
         ) : (
           <>
