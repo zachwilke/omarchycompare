@@ -37,7 +37,10 @@ export function SiteHeader() {
       </div>
 
       <header className="omarchy-header">
-        <h1>Omarchy, macOS, and Windows — side by side.</h1>
+        <h1>
+          The keyboard OS. Tiling, one shell, one update — sourced against macOS
+          Tahoe 26 and Windows 11 25H2.
+        </h1>
       </header>
 
       <nav className="omarchy-nav" aria-label="Official Omarchy links">

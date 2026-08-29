@@ -2,9 +2,11 @@
 
 A sourced comparison sheet: [Omarchy](https://omarchy.org) **4.0.1 · Quattro** against macOS Tahoe 26 (public 26.6.2) and Windows 11 25H2.
 
+The keyboard OS. Tiling, one shell, one update — sold to developers, sysadmins, and keyboard people. Not “Linux that’s almost Mac.”
+
 A fan-made compare sheet. It is dark and terminal-ish, but it uses its own ink palette and chrome — not omarchy.org’s logo, pills, or exact color tokens.
 
-Three columns. Feature rows grouped by category. Each cell is Better / Has it / Different / No. Search filters live (name, category, aliases such as spotlight, airdrop, tiling). Click a row for one line of detail — not an essay.
+Three columns. Rows grouped as a pitch: Future desktop, Keyboard OS, Builder OS, Own the machine, Honest tradeoffs last. Each cell is Better / Has it / Different / No. Search filters live (name, category, aliases such as spotlight, airdrop, tiling). Click a row for one line of detail — not an essay.
 
 This site never writes “4.1”.
 
