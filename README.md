@@ -2,7 +2,7 @@
 
 A sourced comparison sheet: [Omarchy](https://omarchy.org) **4.0.1 · Quattro** against macOS Tahoe 26 (public 26.6.2) and Windows 11 25H2.
 
-The page uses omarchy.org tokens — night/storm backgrounds, JetBrains Mono, terminal-blue pills, cyan links, green checks — so it sits next to the official site. It is a compare sheet, not a homepage fork.
+A fan-made compare sheet. It is dark and terminal-ish, but it uses its own ink palette and chrome — not omarchy.org’s logo, pills, or exact color tokens.
 
 Three columns. Feature rows grouped by category. Each cell is Better / Has it / Different / No. Search filters live (name, category, aliases such as spotlight, airdrop, tiling). Click a row for one line of detail — not an essay.
 

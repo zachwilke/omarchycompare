@@ -1,5 +1,5 @@
+import Link from "next/link";
 import { MANUAL_URL, OMARCHY_URL } from "@/lib/features";
-import { OMARCHY_WORDMARK } from "@/lib/omarchy-wordmark";
 
 function IsoIcon() {
   return (
@@ -30,17 +30,17 @@ function ManualIcon() {
 export function SiteHeader() {
   return (
     <>
-      <div className="omarchy-pre">
-        <a href={OMARCHY_URL} target="_blank" rel="noreferrer" aria-label="Omarchy">
-          <pre>{OMARCHY_WORDMARK}</pre>
-        </a>
+      <div className="site-wordmark">
+        <Link href="/" aria-label="omarchycompare home">
+          omarchycompare
+        </Link>
       </div>
 
       <header className="omarchy-header">
         <h1>Omarchy, macOS, and Windows — side by side.</h1>
       </header>
 
-      <nav className="omarchy-nav" aria-label="Omarchy">
+      <nav className="omarchy-nav" aria-label="Official Omarchy links">
         <a
           href={OMARCHY_URL}
           target="_blank"

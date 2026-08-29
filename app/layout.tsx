@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Omarchy 4.0.1 vs macOS Tahoe 26 vs Windows 11 25H2",
   description:
     "Sourced comparison sheet: Omarchy 4.0.1 (Quattro) vs macOS Tahoe 26 vs Windows 11 25H2. Checks, not essays.",
+  icons: { icon: "/favicon.svg" },
 };
 
 export const viewport: Viewport = {

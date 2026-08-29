@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   OMACOM_ANNOUNCE_URL,
   OMACOM_URL,
@@ -10,22 +9,16 @@ export function SiteFooter() {
   return (
     <footer className="omarchy-footer">
       <p>
-        <a
-          href={OMARCHY_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="omarchy-footer__icon"
-        >
-          <Image src="/omarchy-favicon.png" alt="" width={16} height={16} />
-          <strong>omarchy.org</strong>
+        <a href={OMARCHY_URL} target="_blank" rel="noreferrer" className="omarchy-link">
+          omarchy.org
         </a>
         <span className="omarchy-footer__dot">·</span>
         {VERSION_BADGE}
       </p>
       <p>
         Stewarded by the{" "}
-        <a href={OMACOM_ANNOUNCE_URL} target="_blank" rel="noreferrer">
-          <strong>Omacom Foundation</strong>
+        <a href={OMACOM_ANNOUNCE_URL} target="_blank" rel="noreferrer" className="omarchy-link">
+          Omacom Foundation
         </a>
         <span className="omarchy-footer__dot">·</span>
         <a href={OMACOM_URL} target="_blank" rel="noreferrer" className="omarchy-link">
