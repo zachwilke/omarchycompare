@@ -384,7 +384,7 @@ input.omarchy-search:focus {
 .omarchy-footer__disclaimer {
   color: rgba(214, 218, 226, 0.55);
   font-weight: 400;
-  max-width: 36ch;
+  max-width: 28rem;
   justify-self: center;
 }
 
