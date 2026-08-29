@@ -77,4 +77,4 @@ You do not need extra env vars.
 
 Omarchy is stewarded by the Omacom Foundation, the nonprofit that holds the Omarchy trademarks, funds infrastructure, and supports the open-source projects Omarchy depends on. This is not a startup raise.
 
-This site is not affiliated with Apple or Microsoft. Wordmarks only.
+Not owned or managed by Omarchy or the Omacom Foundation. Just a loving user. This site is not affiliated with Apple or Microsoft. Wordmarks only.
