@@ -17,7 +17,10 @@ function MarkIcon() {
         stroke="currentColor"
         strokeWidth="1.5"
       />
-      <path d="M4 11.2 6.2 5h1.15L9.6 11.2H8.35l-.45-1.35H5.7L5.25 11.2H4zm1.95-2.35h1.7L6.85 6.2h-.1L5.95 8.85z" fill="currentColor" />
+      <path
+        d="M4 11.2 6.2 5h1.15L9.6 11.2H8.35l-.45-1.35H5.7L5.25 11.2H4zm1.95-2.35h1.7L6.85 6.2h-.1L5.95 8.85z"
+        fill="currentColor"
+      />
     </svg>
   );
 }
@@ -35,7 +38,7 @@ export function SiteFooter() {
           <MarkIcon />
           <strong>omarchy.org</strong>
         </a>
-        <span className="mx-[1ch] text-[color:var(--color-terminal-black)]">·</span>
+        <span className="omarchy-footer__dot">·</span>
         {VERSION_BADGE}
       </p>
       <p>
@@ -49,13 +52,8 @@ export function SiteFooter() {
           <MarkIcon />
           <strong>Omacom Foundation</strong>
         </a>
-        <span className="mx-[1ch] text-[color:var(--color-terminal-black)]">·</span>
-        <a
-          href={OMACOM_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="omarchy-link"
-        >
+        <span className="omarchy-footer__dot">·</span>
+        <a href={OMACOM_URL} target="_blank" rel="noreferrer" className="omarchy-link">
           omacom.io
         </a>
       </p>
