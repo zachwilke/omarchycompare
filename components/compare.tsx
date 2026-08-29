@@ -34,7 +34,7 @@ function Mark({ verdict }: { verdict: Verdict }) {
   if (verdict === "different") {
     return (
       <span
-        className="inline-flex items-center justify-center text-[1.1em] leading-none text-terminal-white/55"
+        className="inline-flex items-center justify-center text-[1.1em] leading-none text-terminal-white/75"
         title="Different"
       >
         <span className="sr-only">Different</span>
@@ -46,7 +46,7 @@ function Mark({ verdict }: { verdict: Verdict }) {
   return (
     <span className="inline-flex items-center justify-center" title="No">
       <span className="sr-only">No</span>
-      <Minus className="size-4 text-terminal-white/40" aria-hidden />
+      <Minus className="size-4 text-terminal-white/70" aria-hidden />
     </span>
   );
 }
@@ -74,35 +74,34 @@ export function Compare() {
   return (
     <section id="compare" className="compare-section">
       <div className="compare-toolbar mx-auto max-w-5xl">
-        <label className="relative block min-w-0">
-          <span className="sr-only">Filter feature rows</span>
-          <span
-            aria-hidden
-            className="pointer-events-none absolute left-[0.85em] top-1/2 -translate-y-1/2 text-terminal-cyan"
-          >
-            &gt;
-          </span>
-          <input
-            type="text"
-            inputMode="search"
-            autoComplete="off"
-            autoCorrect="off"
-            spellCheck={false}
-            value={query}
-            onChange={(event) => onSearch(event.currentTarget.value)}
-            onInput={(event) => onSearch(event.currentTarget.value)}
-            placeholder="spotlight, tiling, update"
-            className="omarchy-search"
-          />
-        </label>
+        <div className="compare-search">
+          <label className="compare-search-field">
+            <span className="sr-only">Filter feature rows</span>
+            <span aria-hidden className="compare-search-prompt">
+              &gt;
+            </span>
+            <input
+              type="text"
+              inputMode="search"
+              autoComplete="off"
+              autoCorrect="off"
+              spellCheck={false}
+              value={query}
+              onChange={(event) => onSearch(event.currentTarget.value)}
+              onInput={(event) => onSearch(event.currentTarget.value)}
+              placeholder="spotlight, tiling, update"
+              className="omarchy-search"
+            />
+          </label>
+        </div>
 
-        <p className="mt-3 text-terminal-white/70" aria-live="polite">
+        <p className="compare-count" aria-live="polite">
           {query.trim()
             ? `${visible.length} ${visible.length === 1 ? "row" : "rows"} match “${query.trim()}”`
             : `${visible.length} sourced rows · tap a row for one line`}
         </p>
 
-        <p className="compare-legend mt-3 text-terminal-white/70">
+        <p className="compare-legend">
           <span className="inline-flex items-center gap-1.5">
             <Check className="size-3.5 stroke-[2.4] text-terminal-cyan" aria-hidden />
             Better
@@ -112,25 +111,32 @@ export function Compare() {
             Has it
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="text-terminal-white/55">≠</span>
+            <span className="text-terminal-white/75">≠</span>
             Different
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Minus className="size-3.5 text-terminal-white/40" aria-hidden />
+            <Minus className="size-3.5 text-terminal-white/70" aria-hidden />
             No
           </span>
         </p>
 
         {groups.length === 0 ? (
-          <p className="mt-8 text-center text-terminal-white/60">
+          <p className="mt-8 text-center text-terminal-white/80">
             No rows match. Try tiling, spotlight, or update.
           </p>
         ) : (
           <>
-            <div className="compare-cards mt-5">
+            <div className="compare-cards">
               {groups.map((group) => (
                 <section key={group.category} className="compare-card-group">
-                  <h2 className="compare-card-heading">{group.category}</h2>
+                  <div className="compare-card-head">
+                    <h2 className="compare-card-heading">{group.category}</h2>
+                    <div className="compare-card-cols" aria-hidden>
+                      {COLUMNS.map((column) => (
+                        <span key={column.id}>{column.label}</span>
+                      ))}
+                    </div>
+                  </div>
                   {group.rows.map((feature) => (
                     <FeatureCard
                       key={feature.id}
@@ -143,7 +149,7 @@ export function Compare() {
               ))}
             </div>
 
-            <div className="compare-sheet mt-5">
+            <div className="compare-sheet">
               <table className="compare-table">
                 <colgroup>
                   <col className="compare-col-feature" />
@@ -155,7 +161,7 @@ export function Compare() {
                   <tr>
                     <th
                       scope="col"
-                      className="compare-sticky-corner bg-storm px-3 py-2.5 text-left font-normal uppercase text-terminal-white/70"
+                      className="compare-sticky-corner bg-storm px-3 py-2 text-left font-normal uppercase text-terminal-white"
                     >
                       Feature
                     </th>
@@ -163,7 +169,7 @@ export function Compare() {
                       <th
                         key={column.id}
                         scope="col"
-                        className="compare-sticky-head bg-storm px-2 py-2.5 text-center font-normal uppercase text-terminal-blue"
+                        className="compare-sticky-head bg-storm px-2 py-2 text-center font-normal uppercase text-terminal-white/85"
                       >
                         {column.label}
                       </th>
@@ -225,16 +231,18 @@ function FeatureCard({
       onKeyDown={onKeyDown}
       className={cn("compare-card", open && "is-open")}
     >
-      <h3 className="compare-card__name">{feature.name}</h3>
-      {open && <p className="compare-card__detail">{featureDetail(feature)}</p>}
-      <div className="compare-card__cells">
-        {COLUMNS.map((column) => (
-          <div key={column.id} className="compare-card__cell">
-            <span className="compare-card__label">{column.label}</span>
-            <Mark verdict={feature.columns[column.id].verdict} />
-          </div>
-        ))}
+      <div className="compare-card__row">
+        <h3 className="compare-card__name">{feature.name}</h3>
+        <div className="compare-card__cells">
+          {COLUMNS.map((column) => (
+            <div key={column.id} className="compare-card__cell">
+              <span className="sr-only">{column.label}</span>
+              <Mark verdict={feature.columns[column.id].verdict} />
+            </div>
+          ))}
+        </div>
       </div>
+      {open && <p className="compare-card__detail">{featureDetail(feature)}</p>}
     </article>
   );
 }

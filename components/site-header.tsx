@@ -38,8 +38,12 @@ export function SiteHeader() {
 
       <header className="omarchy-header">
         <h1>
-          The keyboard OS. Tiling, one shell, one update — sourced against macOS
-          Tahoe 26 and Windows 11 25H2.
+          The keyboard OS. Tiling, one shell, one update
+          <span className="omarchy-header__src">
+            sourced against{" "}
+            <span className="omarchy-nowrap">macOS Tahoe 26</span> and{" "}
+            <span className="omarchy-nowrap">Windows 11 25H2</span>.
+          </span>
         </h1>
       </header>
 
