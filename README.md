@@ -2,11 +2,11 @@
 
 A sourced comparison sheet: [Omarchy](https://omarchy.org) **4.0.1 · Quattro** against macOS Tahoe 26 (public 26.6.2) and Windows 11 25H2.
 
-The keyboard OS. Tiling, one shell, one update — sold to developers, sysadmins, and keyboard people. Not “Linux that’s almost Mac.”
+Omarchy is the desktop. Keyboard first. Windows that tile. One shell. Not “Linux that’s almost Mac.”
 
-A fan-made compare sheet. It is dark and terminal-ish, but it uses its own ink palette and chrome — not omarchy.org’s logo, pills, or exact color tokens.
+Fan site. Ink palette and `omarchycompare` wordmark — not omarchy.org’s logo, pills, or tokens.
 
-Three columns. Rows grouped as a pitch: Future desktop, Keyboard OS, Builder OS, Own the machine. Each cell is Better / Has it / Different / No. Search filters live (name, category, aliases such as spotlight, tiling, update). Click a row for one line of detail — not an essay.
+Three columns. Five acts: Future desktop, Keyboard OS, Agent-first OS, Builder OS, Own the machine. Better / Has it / Different / No. Search filters. Click a row for one line.
 
 This site never writes “4.1”.
 
@@ -18,7 +18,7 @@ Every feature row is sourced from official material. Nothing here invents a capa
 - [Coming From Mac or Windows](https://omarchy.org/manual/coming-from-mac-or-windows/)
 - [Omarchy 4.0.0 (Quattro)](https://github.com/basecamp/omarchy/releases/tag/v4.0.0)
 - [Omarchy 4.0.1](https://github.com/basecamp/omarchy/releases/tag/v4.0.1)
-- Related manual chapters: getting started, navigation, hotkeys, themes, Mac support, gaming, Windows VM, dual-boot, development tools, security, system snapshots
+- Related manual chapters: getting started, navigation, hotkeys, themes, Mac support, gaming, Windows VM, dual-boot, development tools, security, system snapshots, [AI](https://omarchy.org/manual/ai/), [terminal](https://omarchy.org/manual/terminal/)
 
 If a claim is not in those sources, it is not on this site.
 

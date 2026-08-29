@@ -1,6 +1,7 @@
 export type Category =
   | "Future desktop"
   | "Keyboard OS"
+  | "Agent-first OS"
   | "Builder OS"
   | "Own the machine";
 

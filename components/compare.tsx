@@ -89,7 +89,7 @@ export function Compare() {
               value={query}
               onChange={(event) => onSearch(event.currentTarget.value)}
               onInput={(event) => onSearch(event.currentTarget.value)}
-              placeholder="spotlight, tiling, update"
+              placeholder="agent, tiling, crash"
               className="omarchy-search"
             />
           </label>

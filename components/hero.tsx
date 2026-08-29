@@ -32,7 +32,7 @@ export function Hero() {
       <h1 className="omarchy-lede">
         Omarchy is the desktop: keyboard first, windows that tile, one shell
         instead of a pile of daemons. The dock, the icons, Start, and the App
-        Store are the past.
+        Store are the past. Coding agents are first-class, not a sidebar.
       </h1>
 
       <nav className="omarchy-nav" aria-label="Official Omarchy links">
