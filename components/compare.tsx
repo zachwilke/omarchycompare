@@ -123,7 +123,7 @@ export function Compare() {
 
         {groups.length === 0 ? (
           <p className="mt-8 text-center text-terminal-white/60">
-            No rows match. Try spotlight, airdrop, or tiling.
+            No rows match. Try tiling, airdrop, or update.
           </p>
         ) : (
           <>
