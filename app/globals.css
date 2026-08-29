@@ -162,37 +162,7 @@ body {
   overflow-x: hidden;
 }
 
-.omarchy-sticky {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-small) var(--space-medium);
-  background: var(--color-background-storm);
-  border-bottom: var(--border-width) solid var(--border-color);
-  padding: var(--space-small) var(--space-medium);
-  padding-top: max(var(--space-small), env(safe-area-inset-top));
-}
-
-.omarchy-wordmark {
-  color: var(--color-green);
-  font-family: var(--font-family);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-@media (hover: hover) {
-  .omarchy-wordmark:hover {
-    color: var(--color-turquoise);
-  }
-}
-
-/* Wordmark — modest one-liner, not the omarchy.org ASCII masthead. */
+/* Modest pixel wordmark — not the full omarchy.org ASCII masthead. */
 .omarchy-pre {
   display: grid;
   margin-top: var(--space-x-large);
@@ -209,12 +179,13 @@ body {
 .omarchy-pre pre {
   color: var(--color-green);
   font-family: var(--font-family);
-  font-size: clamp(1.15rem, 3.2vw, 2rem);
+  font-size: clamp(0.85rem, 2.4vw, 1.45rem);
   font-weight: 700;
   justify-self: center;
-  letter-spacing: 0.12em;
-  line-height: 1;
+  letter-spacing: 0.08em;
+  line-height: 1.05;
   margin: 0;
+  text-align: center;
   transition: color var(--transition);
   white-space: pre;
 }
@@ -358,12 +329,12 @@ body {
 .omarchy-footer {
   align-items: center;
   border-top: var(--border-width) solid var(--border-color);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-large);
-  justify-content: space-between;
+  display: grid;
+  gap: var(--space-medium);
+  justify-content: center;
   margin-top: auto;
-  padding: var(--space-large);
+  padding: var(--space-x-large) var(--space-large);
+  text-align: center;
 }
 
 .omarchy-footer p {
@@ -371,6 +342,12 @@ body {
   font-size: var(--font-size-small);
   font-weight: 500;
   line-height: 2em;
+  text-wrap: pretty;
+}
+
+.omarchy-footer__dot {
+  color: rgb(var(--rgb-terminal-white) / 0.35);
+  margin-inline: 1ch;
 }
 
 .omarchy-footer__icon {
@@ -500,15 +477,16 @@ body {
 }
 
 @media (max-width: 47.99rem) {
-  .omarchy-pre,
-  .omarchy-button--masthead,
   .compare-sheet {
     display: none;
   }
 
-  .omarchy-sticky .omarchy-button {
-    flex: 0 1 auto;
-    max-width: 100%;
+  .omarchy-pre {
+    margin-top: var(--space-large);
+  }
+
+  .omarchy-nav {
+    padding-inline: var(--space-medium);
   }
 }
 
