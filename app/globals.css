@@ -102,6 +102,11 @@
   }
 }
 
+.compare-sheet {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
 .compare-sticky-head {
   position: sticky;
   top: 3.5rem;
