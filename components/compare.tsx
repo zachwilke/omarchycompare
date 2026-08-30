@@ -1,65 +1,100 @@
 "use client";
 
 import { useMemo, useState, type KeyboardEvent } from "react";
-import { Check, Minus } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
+import { MAC_COLUMN, OMARCHY_COLUMN, WINDOWS_COLUMN } from "@/lib/features";
 import { groupByCategory, searchFeatures } from "@/lib/search";
-import type { Feature, Verdict } from "@/lib/types";
+import { ACTS, TOTAL_ROWS } from "@/lib/stats";
+import type { Category, Feature, Platform, Verdict } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { Keycaps } from "@/components/keycaps";
+import { LegendMark, VerdictMark } from "@/components/verdict-mark";
 
-const COLUMNS = [
-  { id: "omarchy" as const, label: "Omarchy" },
-  { id: "macos" as const, label: "macOS" },
-  { id: "windows" as const, label: "Windows" },
+const COLUMNS: { id: Platform; label: string; full: string }[] = [
+  { id: "omarchy", label: "Omarchy", full: OMARCHY_COLUMN },
+  { id: "macos", label: "macOS", full: MAC_COLUMN },
+  { id: "windows", label: "Windows", full: WINDOWS_COLUMN },
 ];
 
-function Mark({ verdict }: { verdict: Verdict }) {
-  if (verdict === "better") {
-    return (
-      <span className="inline-flex items-center justify-center" title="Better">
-        <span className="sr-only">Better</span>
-        <Check className="size-4 stroke-[2.4] text-terminal-cyan" aria-hidden />
-      </span>
-    );
-  }
+const LEGEND: { verdict: Verdict; label: string }[] = [
+  { verdict: "better", label: "Better" },
+  { verdict: "has", label: "Has it" },
+  { verdict: "different", label: "Different" },
+  { verdict: "no", label: "No" },
+];
 
-  if (verdict === "has") {
-    return (
-      <span className="inline-flex items-center justify-center" title="Has it">
-        <span className="sr-only">Has it</span>
-        <Check className="size-4 stroke-[2.4] text-terminal-white/80" aria-hidden />
-      </span>
-    );
-  }
+const ACT_BY_CATEGORY = new Map(ACTS.map((act) => [act.category, act]));
 
-  if (verdict === "different") {
-    return (
-      <span
-        className="inline-flex items-center justify-center text-[1.1em] leading-none text-terminal-white/75"
-        title="Different"
-      >
-        <span className="sr-only">Different</span>
-        <span aria-hidden>≠</span>
-      </span>
-    );
-  }
-
-  return (
-    <span className="inline-flex items-center justify-center" title="No">
-      <span className="sr-only">No</span>
-      <Minus className="size-4 text-terminal-white/70" aria-hidden />
-    </span>
-  );
+function reach(feature: Feature, platform: Platform): string | undefined {
+  if (platform === "macos") return feature.macReach;
+  if (platform === "windows") return feature.windowsReach;
+  return feature.binding;
 }
 
-function featureDetail(feature: Feature) {
-  return feature.binding ? `${feature.tease} ${feature.binding}.` : feature.tease;
+function reachLabel(platform: Platform): string {
+  return platform === "omarchy" ? "Binding" : "Closest reach";
+}
+
+/** The expanded panel — every sourced field this row carries. */
+function FeatureDetail({ feature }: { feature: Feature }) {
+  return (
+    <div className="compare-detail">
+      <p className="compare-detail__lead">{feature.omarchy}</p>
+
+      {feature.binding && (
+        <div className="compare-detail__binding">
+          <span className="compare-detail__binding-label">Binding</span>
+          <Keycaps keys={feature.binding} />
+        </div>
+      )}
+
+      <div className="verdict-grid">
+        {COLUMNS.map((column) => {
+          const cell = feature.columns[column.id];
+          const closest = reach(feature, column.id);
+          return (
+            <div
+              key={column.id}
+              className={cn(
+                "verdict-card",
+                column.id === "omarchy" && "verdict-card--omarchy",
+              )}
+            >
+              <div className="verdict-card__top">
+                <span className="verdict-card__platform">{column.full}</span>
+                <VerdictMark verdict={cell.verdict} />
+              </div>
+              <p className="verdict-card__label">{cell.label}</p>
+              <p className="verdict-card__note">{cell.note}</p>
+              {column.id !== "omarchy" && closest && (
+                <p className="verdict-card__reach">
+                  {reachLabel(column.id)}: <b>{closest}</b>
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <p className="compare-detail__source">
+        <b>Source</b> — {feature.source}
+      </p>
+    </div>
+  );
 }
 
 export function Compare() {
   const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<Category | "All">("All");
   const [openId, setOpenId] = useState<string | null>(null);
 
-  const visible = useMemo(() => searchFeatures(query), [query]);
+  const visible = useMemo(() => {
+    const matched = searchFeatures(query);
+    return category === "All"
+      ? matched
+      : matched.filter((feature) => feature.category === category);
+  }, [query, category]);
+
   const groups = useMemo(() => groupByCategory(visible), [visible]);
 
   function onSearch(value: string) {
@@ -67,14 +102,52 @@ export function Compare() {
     setOpenId(null);
   }
 
+  function onCategory(next: Category | "All") {
+    setCategory(next);
+    setOpenId(null);
+  }
+
   function toggle(id: string) {
     setOpenId((current) => (current === id ? null : id));
   }
 
+  const filtered = query.trim() !== "" || category !== "All";
+
   return (
-    <section id="compare" className="compare-section">
-      <div className="compare-toolbar mx-auto max-w-5xl">
-        <div className="compare-search">
+    <section id="compare" className="shell compare-section">
+      <p className="section-eyebrow">The sheet</p>
+      <h2 className="section-title">
+        {TOTAL_ROWS} sourced rows. Five acts. Click any row for the receipts.
+      </h2>
+      <p className="section-sub">
+        Better, has it, different, or no — for {OMARCHY_COLUMN}, {MAC_COLUMN},
+        and {WINDOWS_COLUMN}. Nothing here invents a capability; each open row
+        cites where the claim comes from.
+      </p>
+
+      <div className="acts">
+        {ACTS.map((act) => (
+          <button
+            key={act.category}
+            type="button"
+            className="act-card"
+            aria-pressed={category === act.category}
+            onClick={() => onCategory(category === act.category ? "All" : act.category)}
+          >
+            <span className="act-card__top">
+              <span className="act-card__numeral">Act {act.numeral}</span>
+              <span className="act-card__score">
+                {act.better}/{act.count} better
+              </span>
+            </span>
+            <span className="act-card__name">{act.category}</span>
+            <span className="act-card__blurb">{act.blurb}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="compare-toolbar">
+        <div className="compare-controls">
           <label className="compare-search-field">
             <span className="sr-only">Filter feature rows</span>
             <span aria-hidden className="compare-search-prompt">
@@ -88,51 +161,81 @@ export function Compare() {
               spellCheck={false}
               value={query}
               onChange={(event) => onSearch(event.currentTarget.value)}
-              onInput={(event) => onSearch(event.currentTarget.value)}
-              placeholder="agent, tiling, crash"
+              placeholder="agent, tiling, snapshot, spotlight…"
               className="omarchy-search"
             />
+            {query !== "" && (
+              <button
+                type="button"
+                className="compare-search-clear"
+                onClick={() => onSearch("")}
+                aria-label="Clear the filter"
+              >
+                <X className="size-4" aria-hidden />
+              </button>
+            )}
           </label>
+
+          <div className="compare-filters" role="group" aria-label="Filter by act">
+            <button
+              type="button"
+              className="filter-chip"
+              aria-pressed={category === "All"}
+              onClick={() => onCategory("All")}
+            >
+              All
+            </button>
+            {ACTS.map((act) => (
+              <button
+                key={act.category}
+                type="button"
+                className="filter-chip"
+                aria-pressed={category === act.category}
+                onClick={() => onCategory(act.category)}
+              >
+                {act.category}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="compare-meta">
           <p className="compare-legend">
-            <span className="inline-flex items-center gap-1.5">
-              <Check className="size-3.5 stroke-[2.4] text-terminal-cyan" aria-hidden />
-              Better
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Check className="size-3.5 stroke-[2.4] text-terminal-white/80" aria-hidden />
-              Has it
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="text-terminal-white/75">≠</span>
-              Different
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Minus className="size-3.5 text-terminal-white/70" aria-hidden />
-              No
-            </span>
+            {LEGEND.map((item) => (
+              <span key={item.verdict} className="inline-flex items-center">
+                <LegendMark verdict={item.verdict} />
+                {item.label}
+              </span>
+            ))}
           </p>
           <p className="compare-count" aria-live="polite">
-            {query.trim()
-              ? `${visible.length} match “${query.trim()}”`
-              : `${visible.length}`}
+            {filtered
+              ? `${visible.length} of ${TOTAL_ROWS} rows`
+              : `${TOTAL_ROWS} rows`}
           </p>
         </div>
+      </div>
 
-        {groups.length === 0 ? (
-          <p className="mt-8 text-center text-terminal-white/80">
-            No rows match. Try tiling, spotlight, or update.
-          </p>
-        ) : (
-          <>
-            <div className="compare-cards">
-              {groups.map((group) => (
+      {groups.length === 0 ? (
+        <p className="compare-empty">
+          No rows match. Try <b>tiling</b>, <b>spotlight</b>, <b>agent</b>, or{" "}
+          <b>snapshot</b>.
+        </p>
+      ) : (
+        <>
+          <div className="compare-cards">
+            {groups.map((group) => {
+              const act = ACT_BY_CATEGORY.get(group.category);
+              return (
                 <section key={group.category} className="compare-card-group">
                   <div className="compare-card-head">
-                    <h2 className="compare-card-heading">{group.category}</h2>
+                    <h3 className="compare-card-heading">
+                      <small>Act {act?.numeral}</small>
+                      {group.category}
+                    </h3>
+                    <p className="compare-card-blurb">{act?.blurb}</p>
                     <div className="compare-card-cols" aria-hidden>
+                      <span />
                       {COLUMNS.map((column) => (
                         <span key={column.id}>{column.label}</span>
                       ))}
@@ -147,45 +250,57 @@ export function Compare() {
                     />
                   ))}
                 </section>
-              ))}
-            </div>
+              );
+            })}
+          </div>
 
-            <div className="compare-sheet">
-              <table className="compare-table">
-                <colgroup>
-                  <col className="compare-col-feature" />
-                  <col className="compare-col-os" />
-                  <col className="compare-col-os" />
-                  <col className="compare-col-os" />
-                </colgroup>
-                <thead>
-                  <tr>
+          <div className="compare-sheet">
+            <table className="compare-table">
+              <colgroup>
+                <col className="compare-col-feature" />
+                <col className="compare-col-os" />
+                <col className="compare-col-os" />
+                <col className="compare-col-os" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    className="compare-head-cell compare-head-cell--feature"
+                  >
+                    Feature
+                  </th>
+                  {COLUMNS.map((column) => (
                     <th
+                      key={column.id}
                       scope="col"
-                      className="compare-sticky-corner bg-night px-3 py-2 text-left font-normal uppercase text-terminal-white"
+                      className={cn(
+                        "compare-head-cell",
+                        column.id === "omarchy" && "compare-head-cell--omarchy",
+                      )}
                     >
-                      Feature
+                      {column.label}
                     </th>
-                    {COLUMNS.map((column) => (
-                      <th
-                        key={column.id}
-                        scope="col"
-                        className="compare-sticky-head bg-night px-2 py-2 text-center font-normal uppercase text-terminal-white/85"
-                      >
-                        {column.label}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                {groups.map((group) => (
-                  <tbody key={group.category} className="align-middle">
-                    <tr>
-                      <th
-                        scope="colgroup"
-                        colSpan={4}
-                        className="compare-sticky-col compare-group-head bg-night px-3 text-left font-normal uppercase text-terminal-cyan"
-                      >
-                        {group.category}
+                  ))}
+                </tr>
+              </thead>
+              {groups.map((group) => {
+                const act = ACT_BY_CATEGORY.get(group.category);
+                return (
+                  <tbody key={group.category}>
+                    <tr className="compare-act-row">
+                      <th scope="colgroup" colSpan={4}>
+                        <span className="compare-act">
+                          <span className="compare-act__numeral">
+                            Act {act?.numeral}
+                          </span>
+                          <span className="compare-act__name">
+                            {group.category}
+                          </span>
+                          <span className="compare-act__blurb">
+                            {act?.blurb}
+                          </span>
+                        </span>
                       </th>
                     </tr>
                     {group.rows.map((feature) => (
@@ -197,12 +312,12 @@ export function Compare() {
                       />
                     ))}
                   </tbody>
-                ))}
-              </table>
-            </div>
-          </>
-        )}
-      </div>
+                );
+              })}
+            </table>
+          </div>
+        </>
+      )}
     </section>
   );
 }
@@ -216,34 +331,33 @@ function FeatureCard({
   open: boolean;
   onToggle: () => void;
 }) {
-  function onKeyDown(event: KeyboardEvent<HTMLElement>) {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      onToggle();
-    }
-  }
-
   return (
-    <article
-      role="button"
-      tabIndex={0}
-      aria-expanded={open}
-      onClick={onToggle}
-      onKeyDown={onKeyDown}
-      className={cn("compare-card", open && "is-open")}
-    >
-      <div className="compare-card__row">
-        <h3 className="compare-card__name">{feature.name}</h3>
-        <div className="compare-card__cells">
-          {COLUMNS.map((column) => (
-            <div key={column.id} className="compare-card__cell">
-              <span className="sr-only">{column.label}</span>
-              <Mark verdict={feature.columns[column.id].verdict} />
-            </div>
-          ))}
+    <article className={cn("compare-card", open && "is-open")}>
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={onToggle}
+        className="compare-card__row"
+      >
+        <h4 className="compare-card__name">{feature.name}</h4>
+        {COLUMNS.map((column) => (
+          <span
+            key={column.id}
+            className={cn(
+              "compare-card__cell",
+              column.id === "omarchy" && "compare-card__cell--omarchy",
+            )}
+          >
+            <span className="sr-only">{column.label}</span>
+            <VerdictMark verdict={feature.columns[column.id].verdict} />
+          </span>
+        ))}
+      </button>
+      {open && (
+        <div className="compare-card__detail">
+          <FeatureDetail feature={feature} />
         </div>
-      </div>
-      {open && <p className="compare-card__detail">{featureDetail(feature)}</p>}
+      )}
     </article>
   );
 }
@@ -265,37 +379,44 @@ function FeatureRow({
   }
 
   return (
-    <tr
-      role="button"
-      tabIndex={0}
-      aria-expanded={open}
-      onClick={onToggle}
-      onKeyDown={onKeyDown}
-      className={cn(
-        "cursor-pointer border-t outline-none",
-        open ? "bg-night" : "hover:bg-storm/40",
-      )}
-      style={{ borderColor: "var(--border-color)" }}
-    >
-      <th
-        scope="row"
-        className={cn(
-          "compare-sticky-col compare-row-name px-3 text-left font-normal",
-          "bg-night",
-        )}
+    <>
+      <tr
+        role="button"
+        tabIndex={0}
+        aria-expanded={open}
+        onClick={onToggle}
+        onKeyDown={onKeyDown}
+        className={cn("compare-row", open && "is-open")}
       >
-        <span className="block text-terminal-white">{feature.name}</span>
-        {open && (
-          <span className="mt-1.5 block font-normal text-terminal-cyan">
-            {featureDetail(feature)}
+        <th scope="row" className="compare-row__head">
+          <span className="compare-row__name">
+            <ChevronRight
+              className="compare-row__chevron size-3.5"
+              aria-hidden
+            />
+            {feature.name}
           </span>
-        )}
-      </th>
-      {COLUMNS.map((column) => (
-        <td key={column.id} className="compare-row-mark px-2 text-center">
-          <Mark verdict={feature.columns[column.id].verdict} />
-        </td>
-      ))}
-    </tr>
+          {!open && <span className="compare-row__tease">{feature.tease}</span>}
+        </th>
+        {COLUMNS.map((column) => (
+          <td
+            key={column.id}
+            className={cn(
+              "compare-cell",
+              column.id === "omarchy" && "compare-cell--omarchy",
+            )}
+          >
+            <VerdictMark verdict={feature.columns[column.id].verdict} />
+          </td>
+        ))}
+      </tr>
+      {open && (
+        <tr className="compare-detail-row">
+          <td colSpan={4}>
+            <FeatureDetail feature={feature} />
+          </td>
+        </tr>
+      )}
+    </>
   );
 }

@@ -1,4 +1,12 @@
-import { MANUAL_URL, OMARCHY_URL, VERSION_BADGE } from "@/lib/features";
+import {
+  MANUAL_URL,
+  OMARCHY_URL,
+  MAC_COLUMN,
+  MAC_COLUMN_NOTE,
+  VERSION_BADGE,
+  WINDOWS_COLUMN,
+} from "@/lib/features";
+import { OMARCHY_BETTER, TOTAL_ROWS } from "@/lib/stats";
 
 function IsoIcon() {
   return (
@@ -26,22 +34,42 @@ function ManualIcon() {
   );
 }
 
+const SCORES: { value: string; unit?: string; label: string }[] = [
+  {
+    value: String(OMARCHY_BETTER),
+    unit: `/ ${TOTAL_ROWS}`,
+    label: "rows where Omarchy is better",
+  },
+  { value: "1", label: "shell process, not a daemon pile" },
+  { value: "22", label: "themes, switched system-wide" },
+  { value: "0", label: "claims without a source" },
+];
+
 export function Hero() {
   return (
-    <header className="omarchy-hero">
-      <h1 className="omarchy-lede">
-        Omarchy is the desktop: keyboard first, windows that tile, one shell
-        instead of a pile of daemons. The dock, the icons, Start, and the App
-        Store are the past. Coding agents are first-class, not a sidebar.
+    <section className="shell hero">
+      <p className="pill" style={{ display: "inline-flex" }}>
+        <span className="pill__dot" aria-hidden />
+        {VERSION_BADGE}
+      </p>
+
+      <h1 className="hero__title">
+        The dock is the past. <em>Super</em> is the machine.
+        <span className="hero__cursor" aria-hidden />
       </h1>
 
-      <nav className="omarchy-nav" aria-label="Official Omarchy links">
+      <p className="hero__lede">
+        Omarchy is the desktop: keyboard first, windows that tile, one shell
+        instead of a pile of daemons. Coding agents are first-class, not a
+        sidebar. Every row below is sourced from official material.
+      </p>
+
+      <div className="hero__actions">
         <a
           href={OMARCHY_URL}
           target="_blank"
           rel="noreferrer"
-          className="omarchy-button"
-          aria-label="Get Omarchy"
+          className="omarchy-button omarchy-button--primary"
         >
           <IsoIcon />
           <span>Get Omarchy</span>
@@ -51,21 +79,32 @@ export function Hero() {
           target="_blank"
           rel="noreferrer"
           className="omarchy-button"
-          aria-label="Coming from Mac or Windows"
         >
           <ManualIcon />
-          <span>Manual</span>
+          <span>Coming from Mac or Windows</span>
         </a>
-      </nav>
+      </div>
 
-      <p className="omarchy-version">
-        {VERSION_BADGE}
-        <span className="omarchy-meta-dot" aria-hidden>
+      <p className="hero__note">
+        Compared against <span className="omarchy-nowrap">{MAC_COLUMN}</span> (
+        {MAC_COLUMN_NOTE})
+        <span className="meta-dot" aria-hidden>
           ·
         </span>
-        vs <span className="omarchy-nowrap">macOS Tahoe 26</span> and{" "}
-        <span className="omarchy-nowrap">Windows 11 25H2</span>
+        <span className="omarchy-nowrap">{WINDOWS_COLUMN}</span>
       </p>
-    </header>
+
+      <ul className="scoreboard">
+        {SCORES.map((score) => (
+          <li key={score.label} className="scoreboard__cell">
+            <span className="scoreboard__value">
+              {score.value}
+              {score.unit && <span> {score.unit}</span>}
+            </span>
+            <span className="scoreboard__label">{score.label}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
