@@ -1,16 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { THEME_COLOR, THEME_STORAGE_KEY } from "@/lib/theme";
-
-/**
- * Runs before first paint so an opted-in light reader never sees a dark flash.
- * Dark is the default, so only "light" needs stamping.
- */
-const themeScript = `try{if(localStorage.getItem(${JSON.stringify(
-  THEME_STORAGE_KEY,
-)})==="light"){document.documentElement.dataset.theme="light";var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",${JSON.stringify(
-  THEME_COLOR.light,
-)})}}catch(e){}`;
+import { THEME_COLOR } from "@/lib/theme";
 
 const title = "Omarchy 4.0.1 vs macOS Tahoe 26 vs Windows 11 25H2";
 const description =
@@ -46,10 +36,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     // HTML and the client tree differ on <html> by design.
     <html lang="en" className="h-full" suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
-        {/* Plain inline script on purpose: next/script beforeInteractive queues
-            inline code for Next's loader, which paints dark first. This runs
-            while the parser is still on the first line of <body>. */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* async so React treats it as a hoistable resource and preinits it
+            into <head>, rather than creating a script node on every client
+            render — which is what logs "Encountered a script tag". */}
+        <script async src="/theme-init.js" />
         {children}
       </body>
     </html>

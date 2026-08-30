@@ -8,7 +8,7 @@ Fan site. Ink palette and `omarchycompare` wordmark — not omarchy.org’s logo
 
 Three columns. Five acts: Future desktop, Keyboard OS, Agent-first OS, Builder OS, Own the machine. Better / Has it / Different / No. Search and act filters. Click a row for the prose, the binding, the three verdicts, and the source.
 
-Dark by default. The header toggle switches to light and stores the choice per browser (`omarchycompare-theme` in `localStorage`); an inline script in `app/layout.tsx` applies it before first paint. Nothing reads `prefers-color-scheme` — dark is the default for everyone until they say otherwise.
+Dark by default. The header toggle switches to light and stores the choice per browser (`omarchycompare-theme` in `localStorage`); `public/theme-init.js` applies it before first paint. Nothing reads `prefers-color-scheme` — dark is the default for everyone until they say otherwise.
 
 This site never writes “4.1”.
 

@@ -1,3 +1,4 @@
+/* Mirrored in public/theme-init.js, which runs before React. Keep in step. */
 export const THEME_STORAGE_KEY = "omarchycompare-theme";
 
 /** Browser chrome colour per theme — kept in step with --rgb-background-night. */
